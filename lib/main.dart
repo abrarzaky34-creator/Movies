@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'feature/auth/presentation/screens/register_screen.dart';
-import 'feature/auth/presentation/screens/register_screen.dart';
 import 'firebase_options.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'core/theme/app_theme.dart';
@@ -22,7 +21,6 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Movies App',
       theme: AppTheme.darkTheme,
-
       home: const RegisterScreen(),
     );
   }
