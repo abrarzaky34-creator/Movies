@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'firebase_options.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'core/theme/app_theme.dart';
+import 'core/routes/app_routes.dart';
+import 'features/home/presentation/cubit/home_cubit.dart';
+import 'features/home/presentation/pages/main_layout_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -16,18 +20,17 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'Movies App',
-      theme: AppTheme.darkTheme,
+    return BlocProvider(
+      create: (_) => HomeCubit(),
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        title: 'Movies App',
+        theme: AppTheme.darkTheme,
 
-      home: const Scaffold(
-        body: Center(
-          child: Text(
-            'Movies App',
-            style: TextStyle(fontSize: 24),
-          ),
-        ),
+        initialRoute: AppRoutes.home,
+        routes: {
+          AppRoutes.home: (_) => const MainLayoutScreen(),
+        },
       ),
     );
   }
