@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
+import 'onboarding _screen_2.dart';
 
 class OnboardingScreen extends StatelessWidget {
   const OnboardingScreen({super.key});
@@ -22,6 +22,7 @@ class OnboardingScreen extends StatelessWidget {
               child: const MoviePosterGrid(),
             ),
           ),
+
           Positioned(
             bottom: 0,
             left: 0,
@@ -43,14 +44,18 @@ class OnboardingScreen extends StatelessWidget {
               ),
             ),
           ),
+
           SafeArea(
             child: Column(
               children: [
                 const Spacer(),
+
                 Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 20.0),
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 24.0,
+                    vertical: 20.0,
+                  ),
                   child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       const Text(
                         "Find Your Next\nFavorite Movie Here",
@@ -62,9 +67,12 @@ class OnboardingScreen extends StatelessWidget {
                           height: 1.2,
                         ),
                       ),
+
                       const SizedBox(height: 14),
+
                       const Text(
-                        "Get access to a huge library of movies\nto suit all tastes. You will surely like it.",
+                        "Get access to a huge library of movies\n"
+                            "to suit all tastes. You will surely like it.",
                         textAlign: TextAlign.center,
                         style: TextStyle(
                           color: Colors.white70,
@@ -72,12 +80,22 @@ class OnboardingScreen extends StatelessWidget {
                           height: 1.4,
                         ),
                       ),
+
                       const SizedBox(height: 32),
+
                       SizedBox(
                         width: double.infinity,
                         height: 52,
                         child: ElevatedButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) =>
+                                const OnboardingScreen1(),
+                              ),
+                            );
+                          },
                           style: ElevatedButton.styleFrom(
                             backgroundColor: const Color(0xFFFFD700),
                             foregroundColor: Colors.black,
@@ -95,7 +113,9 @@ class OnboardingScreen extends StatelessWidget {
                           ),
                         ),
                       ),
+
                       const SizedBox(height: 16),
+
                       TextButton(
                         onPressed: () {},
                         child: const Text(
@@ -133,7 +153,10 @@ class MoviePosterGrid extends StatelessWidget {
       'assets/images/wick-is-pain-movies-he-poster-01.webp',
     ];
 
-    final repeatedUrls = List.generate(5, (_) => posterUrls).expand((x) => x).toList();
+    final repeatedUrls =
+    List.generate(5, (_) => posterUrls)
+        .expand((x) => x)
+        .toList();
 
     return GridView.builder(
       padding: EdgeInsets.zero,
@@ -151,10 +174,15 @@ class MoviePosterGrid extends StatelessWidget {
           child: Image.asset(
             repeatedUrls[index],
             fit: BoxFit.cover,
-            errorBuilder: (context, error, stackTrace) => Container(
-              color: Colors.grey[900],
-              child: const Icon(Icons.movie, color: Colors.white24),
-            ),
+            errorBuilder: (context, error, stackTrace) {
+              return Container(
+                color: Colors.grey[900],
+                child: const Icon(
+                  Icons.movie,
+                  color: Colors.white24,
+                ),
+              );
+            },
           ),
         );
       },

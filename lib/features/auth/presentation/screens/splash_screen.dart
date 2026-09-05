@@ -1,6 +1,5 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
-
 import 'onboarding_screen_1.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -31,12 +30,10 @@ class _SplashScreenState extends State<SplashScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: const Color(0xFF121212),
-
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-
             // Logo
             Stack(
               alignment: Alignment.center,
@@ -63,7 +60,6 @@ class _SplashScreenState extends State<SplashScreen> {
 
             const SizedBox(height: 20),
 
-            // Route
             const Text(
               'Route',
               style: TextStyle(
@@ -75,7 +71,6 @@ class _SplashScreenState extends State<SplashScreen> {
 
             const SizedBox(height: 8),
 
-            // Supervised by
             const Text(
               'Supervised by Mohamed Nabil',
               style: TextStyle(
@@ -88,4 +83,3 @@ class _SplashScreenState extends State<SplashScreen> {
       ),
     );
   }
-}
