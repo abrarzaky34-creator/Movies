@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class OnboardingScreen4 extends StatelessWidget {
-  const OnboardingScreen4({super.key});
+class OnboardingScreen5 extends StatelessWidget {
+  const OnboardingScreen5({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -9,15 +9,19 @@ class OnboardingScreen4 extends StatelessWidget {
       backgroundColor: Colors.black,
       body: Stack(
         children: [
+          // =========================
           // FULL SCREEN IMAGE
+          // =========================
           Positioned.fill(
             child: Image.asset(
-              'assets/images/best-movie-posters-jurassic-park.webp',
+              'assets/images/onboarding5.png',
               fit: BoxFit.cover,
             ),
           ),
 
+          // =========================
           // DARK GRADIENT
+          // =========================
           Positioned.fill(
             child: Container(
               decoration: BoxDecoration(
@@ -27,7 +31,7 @@ class OnboardingScreen4 extends StatelessWidget {
                   colors: [
                     Colors.transparent,
                     Colors.transparent,
-                    Colors.black.withOpacity(0.85),
+                    Colors.black.withOpacity(0.75),
                     Colors.black,
                   ],
                   stops: const [
@@ -41,21 +45,12 @@ class OnboardingScreen4 extends StatelessWidget {
             ),
           ),
 
+          // =========================
+          // BOTTOM CONTENT
+          // =========================
           SafeArea(
             child: Column(
               children: [
-                const SizedBox(height: 25),
-
-                const Align(
-                  alignment: Alignment.centerLeft,
-                  child: Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 22),
-
-                      ),
-                    ),
-                  ),
-                ),
-
                 const Spacer(),
 
                 Container(
@@ -67,7 +62,7 @@ class OnboardingScreen4 extends StatelessWidget {
                     20,
                   ),
                   decoration: BoxDecoration(
-                    color: Colors.black.withOpacity(0.88),
+                    color: Colors.black.withOpacity(0.90),
                     borderRadius: const BorderRadius.only(
                       topLeft: Radius.circular(35),
                       topRight: Radius.circular(35),
@@ -75,8 +70,9 @@ class OnboardingScreen4 extends StatelessWidget {
                   ),
                   child: Column(
                     children: [
+                      // TITLE
                       const Text(
-                        'Create Watchlists',
+                        'Rate, Review, and Learn',
                         textAlign: TextAlign.center,
                         style: TextStyle(
                           color: Colors.white,
@@ -87,11 +83,12 @@ class OnboardingScreen4 extends StatelessWidget {
 
                       const SizedBox(height: 12),
 
+                      // DESCRIPTION
                       const Text(
-                        'Save movies to your watchlist to keep\n'
-                            'track of what you want to watch next.\n'
-                            'Enjoy films in various qualities and\n'
-                            'genres.',
+                        "Share your thoughts on the movies\n"
+                            "you've watched. Dive deep into film\n"
+                            "details and help others discover great\n"
+                            "movies with your reviews.",
                         textAlign: TextAlign.center,
                         style: TextStyle(
                           color: Colors.white,
@@ -103,23 +100,23 @@ class OnboardingScreen4 extends StatelessWidget {
 
                       const SizedBox(height: 25),
 
-                      // NEXT
+                      // =========================
+                      // NEXT BUTTON
+                      // =========================
                       SizedBox(
                         width: double.infinity,
                         height: 58,
                         child: ElevatedButton(
                           onPressed: () {
-                            // هنضيف هنا الشاشة اللي بعد الـOnboarding
-                            // لما تبدأي فيها.
+                            // الشاشة اللي بعد الـOnboarding
+                            // هنحطها هنا لما نعرف اسمها.
                           },
                           style: ElevatedButton.styleFrom(
-                            backgroundColor:
-                            const Color(0xFFFFE000),
+                            backgroundColor: const Color(0xFFFFE000),
                             foregroundColor: Colors.black,
                             elevation: 0,
                             shape: RoundedRectangleBorder(
-                              borderRadius:
-                              BorderRadius.circular(18),
+                              borderRadius: BorderRadius.circular(18),
                             ),
                           ),
                           child: const Text(
@@ -134,7 +131,9 @@ class OnboardingScreen4 extends StatelessWidget {
 
                       const SizedBox(height: 15),
 
-                      // BACK
+                      // =========================
+                      // BACK BUTTON
+                      // =========================
                       SizedBox(
                         width: double.infinity,
                         height: 58,
@@ -143,15 +142,13 @@ class OnboardingScreen4 extends StatelessWidget {
                             Navigator.pop(context);
                           },
                           style: OutlinedButton.styleFrom(
-                            foregroundColor:
-                            const Color(0xFFFFE000),
+                            foregroundColor: const Color(0xFFFFE000),
                             side: const BorderSide(
                               color: Color(0xFFFFE000),
                               width: 2,
                             ),
                             shape: RoundedRectangleBorder(
-                              borderRadius:
-                              BorderRadius.circular(18),
+                              borderRadius: BorderRadius.circular(18),
                             ),
                           ),
                           child: const Text(
