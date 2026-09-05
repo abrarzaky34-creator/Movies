@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
-import 'onboarding_screen_6.dart';
 
-class OnboardingScreen5 extends StatelessWidget {
-  const OnboardingScreen5({super.key});
+class OnboardingScreen6 extends StatelessWidget {
+  const OnboardingScreen6({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -15,7 +14,7 @@ class OnboardingScreen5 extends StatelessWidget {
           // =========================
           Positioned.fill(
             child: Image.asset(
-              'assets/images/onboarding5.png',
+              'assets/images/trending-paw-patrol-dino-movie-posters.webp',
               fit: BoxFit.cover,
             ),
           ),
@@ -75,7 +74,7 @@ class OnboardingScreen5 extends StatelessWidget {
                       // TITLE
                       // =========================
                       const Text(
-                        'Rate, Review, and Learn',
+                        'Start Watching Now',
                         textAlign: TextAlign.center,
                         style: TextStyle(
                           color: Colors.white,
@@ -84,42 +83,18 @@ class OnboardingScreen5 extends StatelessWidget {
                         ),
                       ),
 
-                      const SizedBox(height: 12),
-
-                      // =========================
-                      // DESCRIPTION
-                      // =========================
-                      const Text(
-                        "Share your thoughts on the movies\n"
-                            "you've watched. Dive deep into film\n"
-                            "details and help others discover great\n"
-                            "movies with your reviews.",
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 16,
-                          height: 1.35,
-                          fontWeight: FontWeight.w500,
-                        ),
-                      ),
-
                       const SizedBox(height: 25),
 
                       // =========================
-                      // NEXT BUTTON
+                      // FINISH BUTTON
                       // =========================
                       SizedBox(
                         width: double.infinity,
                         height: 58,
                         child: ElevatedButton(
                           onPressed: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) =>
-                                const OnboardingScreen6(),
-                              ),
-                            );
+                            // هنا هنحط الشاشة الرئيسية
+                            // بعد ما نخلص الـ Onboarding
                           },
                           style: ElevatedButton.styleFrom(
                             backgroundColor: const Color(0xFFFFE000),
@@ -130,7 +105,7 @@ class OnboardingScreen5 extends StatelessWidget {
                             ),
                           ),
                           child: const Text(
-                            'Next',
+                            'Finish',
                             style: TextStyle(
                               fontSize: 18,
                               fontWeight: FontWeight.bold,
