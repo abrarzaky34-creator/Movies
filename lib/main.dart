@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'feature/auth/presentation/screens/register_screen.dart';
+import 'feature/auth/presentation/screens/register_screen.dart';
 import 'firebase_options.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'core/theme/app_theme.dart';
@@ -21,14 +23,7 @@ class MyApp extends StatelessWidget {
       title: 'Movies App',
       theme: AppTheme.darkTheme,
 
-      home: const Scaffold(
-        body: Center(
-          child: Text(
-            'Movies App',
-            style: TextStyle(fontSize: 24),
-          ),
-        ),
-      ),
+      home: const RegisterScreen(),
     );
   }
 }
