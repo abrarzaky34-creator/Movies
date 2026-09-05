@@ -15,7 +15,7 @@ class OnboardingScreen5 extends StatelessWidget {
           // =========================
           Positioned.fill(
             child: Image.asset(
-              'assets/images/onboarding5.png',
+              'assets/images/fall-movies-he-poster-01.webp',
               fit: BoxFit.cover,
             ),
           ),
