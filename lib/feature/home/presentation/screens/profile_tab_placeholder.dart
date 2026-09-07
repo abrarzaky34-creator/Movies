@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import '../../../../core/constants/app_colors.dart';
 
-/// TODO(teammate): replace with Update Profile / Watchlist / History UI.
 class ProfileTabPlaceholder extends StatelessWidget {
   const ProfileTabPlaceholder({super.key});
 

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import '../../../../core/constants/app_colors.dart';
-/// TODO(teammate): replace with the real search bar + results UI.
+
 class SearchTabPlaceholder extends StatelessWidget {
   const SearchTabPlaceholder({super.key});
 

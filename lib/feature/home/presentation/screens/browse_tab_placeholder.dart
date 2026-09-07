@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import '../../../../core/constants/app_colors.dart';
 
-/// TODO(teammate): replace with the real genre tabs + filtered list UI.
 class BrowseTabPlaceholder extends StatelessWidget {
   const BrowseTabPlaceholder({super.key});
 
