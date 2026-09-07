@@ -9,19 +9,15 @@ class OnboardingScreen6 extends StatelessWidget {
       backgroundColor: Colors.black,
       body: Stack(
         children: [
-          // =========================
-          // FULL SCREEN IMAGE
-          // =========================
+
           Positioned.fill(
             child: Image.asset(
-              'assets/images/trending-paw-patrol-dino-movie-posters.webp',
+              'assets/images/6.png',
               fit: BoxFit.cover,
             ),
           ),
 
-          // =========================
-          // DARK GRADIENT
-          // =========================
+
           Positioned.fill(
             child: Container(
               decoration: BoxDecoration(
@@ -45,9 +41,7 @@ class OnboardingScreen6 extends StatelessWidget {
             ),
           ),
 
-          // =========================
-          // BOTTOM CONTENT
-          // =========================
+
           SafeArea(
             child: Column(
               children: [
@@ -70,9 +64,7 @@ class OnboardingScreen6 extends StatelessWidget {
                   ),
                   child: Column(
                     children: [
-                      // =========================
-                      // TITLE
-                      // =========================
+
                       const Text(
                         'Start Watching Now',
                         textAlign: TextAlign.center,
@@ -85,9 +77,7 @@ class OnboardingScreen6 extends StatelessWidget {
 
                       const SizedBox(height: 25),
 
-                      // =========================
-                      // FINISH BUTTON
-                      // =========================
+
                       SizedBox(
                         width: double.infinity,
                         height: 58,
@@ -116,9 +106,7 @@ class OnboardingScreen6 extends StatelessWidget {
 
                       const SizedBox(height: 15),
 
-                      // =========================
-                      // BACK BUTTON
-                      // =========================
+
                       SizedBox(
                         width: double.infinity,
                         height: 58,
