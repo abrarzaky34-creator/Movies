@@ -7,6 +7,7 @@ import '../../feature/auth/presentation/screens/forget_password_screen.dart';
 import '../../feature/auth/presentation/screens/update_profile_screen.dart';
 import '../../feature/auth/presentation/screens/profile_tab.dart';
 import '../../features/home/presentation/pages/main_layout_screen.dart';
+import '../../feature/movie_details/presentation/screens/movie_details_screen.dart';
 
 class AppRoutes {
   static const String splash = '/';
@@ -17,6 +18,7 @@ class AppRoutes {
   static const String home = '/home';
   static const String profileTab = '/profile-tab';
   static const String updateProfile = '/update-profile';
+  static const String movieDetails = '/movie-details';
 
   static Route<dynamic> generateRoute(RouteSettings settings) {
     switch (settings.name) {
@@ -43,6 +45,13 @@ class AppRoutes {
 
       case updateProfile:
         return MaterialPageRoute(builder: (_) => const UpdateProfileScreen());
+
+      case movieDetails:
+        final movieId = settings.arguments as int;
+
+        return MaterialPageRoute(
+          builder: (_) => MovieDetailsScreen(movieId: movieId),
+        );
 
       default:
         return MaterialPageRoute(
