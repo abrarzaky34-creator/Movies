@@ -14,7 +14,7 @@ class SuggestionsCubit extends Cubit<SuggestionsState> {
     emit(SuggestionsLoading());
 
     try {
-      final movies =
+      final List<MovieSuggestionModel> movies =
       await dataSource.getMovieSuggestions(movieId);
 
       emit(SuggestionsSuccess(movies));

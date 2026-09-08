@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+
 import '../models/movie_suggestions_model.dart';
 
 class MovieSuggestionsDataSource {
@@ -16,7 +17,8 @@ class MovieSuggestionsDataSource {
       },
     );
 
-    final List movies = response.data['data']['movies'] ?? [];
+    final List movies =
+        response.data['data']['movies'] ?? [];
 
     return movies
         .map(
