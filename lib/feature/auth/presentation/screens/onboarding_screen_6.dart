@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../../../core/routes/app_routes.dart';
 
 class OnboardingScreen6 extends StatelessWidget {
   const OnboardingScreen6({super.key});
@@ -93,8 +94,7 @@ class OnboardingScreen6 extends StatelessWidget {
                         height: 58,
                         child: ElevatedButton(
                           onPressed: () {
-                            // هنا هنحط الشاشة الرئيسية
-                            // بعد ما نخلص الـ Onboarding
+                            Navigator.pushNamed(context, AppRoutes.login);
                           },
                           style: ElevatedButton.styleFrom(
                             backgroundColor: const Color(0xFFFFE000),

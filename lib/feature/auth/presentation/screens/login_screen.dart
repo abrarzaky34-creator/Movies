@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../../../core/routes/app_routes.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -102,7 +103,9 @@ class _LoginScreenState extends State<LoginScreen> {
                 Align(
                   alignment: Alignment.centerRight,
                   child: TextButton(
-                    onPressed: () {},
+                      onPressed: () {
+                        Navigator.pushNamed(context, AppRoutes.forgetPassword);
+                      },
                     child: const Text(
                       'Forget Password ?',
                       style: TextStyle(color: Color(0xFFE5B121)),
@@ -143,7 +146,9 @@ class _LoginScreenState extends State<LoginScreen> {
                       style: TextStyle(color: Colors.white),
                     ),
                     GestureDetector(
-                      onTap: () {},
+                      onTap: () {
+                        Navigator.pushNamed(context, AppRoutes.register);
+                      },
                       child: const Text(
                         'Create One',
                         style: TextStyle(

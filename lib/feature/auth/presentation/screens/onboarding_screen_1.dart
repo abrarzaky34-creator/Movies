@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'onboarding _screen_2.dart';
+import '../../../../core/routes/app_routes.dart';
 
 class OnboardingScreen extends StatelessWidget {
   const OnboardingScreen({super.key});
@@ -117,7 +118,9 @@ class OnboardingScreen extends StatelessWidget {
                       const SizedBox(height: 16),
 
                       TextButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          Navigator.pushNamed(context, AppRoutes.register);
+                        },
                         child: const Text(
                           "Register",
                           style: TextStyle(
