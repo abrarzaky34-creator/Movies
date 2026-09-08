@@ -1,16 +1,13 @@
 import 'package:flutter/material.dart';
-
 import '../../../../core/constants/app_colors.dart';
 class AppBottomNavBar extends StatelessWidget {
   final int currentIndex;
   final ValueChanged<int> onTap;
-
   const AppBottomNavBar({
     super.key,
     required this.currentIndex,
     required this.onTap,
   });
-
   @override
   Widget build(BuildContext context) {
     return SafeArea(
