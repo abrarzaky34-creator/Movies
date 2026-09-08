@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import '../../../../core/constants/app_colors.dart';
-/// TODO(teammate): replace with the real search bar + results UI.
-class SearchTabPlaceholder extends StatelessWidget {
-  const SearchTabPlaceholder({super.key});
+
+class ProfileTabPlaceholder extends StatelessWidget {
+  const ProfileTabPlaceholder({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -10,7 +10,7 @@ class SearchTabPlaceholder extends StatelessWidget {
       color: AppColors.background,
       child: Center(
         child: Text(
-          'Search Screen',
+          'Profile Screen',
           style: TextStyle(color: AppColors.text, fontSize: 16),
         ),
       ),

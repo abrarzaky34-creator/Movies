@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import '../../../../core/constants/app_colors.dart';
 
-/// TODO(teammate): replace with Update Profile / Watchlist / History UI.
-class ProfileTabPlaceholder extends StatelessWidget {
-  const ProfileTabPlaceholder({super.key});
+class SearchTabPlaceholder extends StatelessWidget {
+  const SearchTabPlaceholder({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -11,7 +10,7 @@ class ProfileTabPlaceholder extends StatelessWidget {
       color: AppColors.background,
       child: Center(
         child: Text(
-          'Profile Screen',
+          'Search Screen',
           style: TextStyle(color: AppColors.text, fontSize: 16),
         ),
       ),

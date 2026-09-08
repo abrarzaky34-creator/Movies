@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../cubit/home_cubit.dart';
-import '../widgets/app_bottom_nav_bar.dart';
+import '../../logic/home_cubit.dart';
+import 'app_bottom_nav_bar.dart';
 import 'home_tab.dart';
 import 'search_tab_placeholder.dart';
 import 'browse_tab_placeholder.dart';
