@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'login_screen.dart';
 
 class OnboardingScreen6 extends StatelessWidget {
   const OnboardingScreen6({super.key});
@@ -6,152 +7,98 @@ class OnboardingScreen6 extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.black,
-      body: Stack(
-        children: [
-          // =========================
-          // FULL SCREEN IMAGE
-          // =========================
-          Positioned.fill(
-            child: Image.asset(
-              'assets/images/trending-paw-patrol-dino-movie-posters.webp',
-              fit: BoxFit.cover,
-            ),
-          ),
-
-          // =========================
-          // DARK GRADIENT
-          // =========================
-          Positioned.fill(
-            child: Container(
-              decoration: BoxDecoration(
-                gradient: LinearGradient(
-                  begin: Alignment.topCenter,
-                  end: Alignment.bottomCenter,
-                  colors: [
-                    Colors.transparent,
-                    Colors.transparent,
-                    Colors.black87,
-                    Colors.black,
-                  ],
-                  stops: const [
-                    0.0,
-                    0.45,
-                    0.72,
-                    1.0,
-                  ],
+      backgroundColor: const Color(0xFF121312),
+      body: SafeArea(
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 24),
+          child: Column(
+            children: [
+              const Spacer(),
+              Image.asset(
+                'assets/images/onboarding6.png',
+                height: 300,
+                fit: BoxFit.contain,
+              ),
+              const SizedBox(height: 40),
+              const Text(
+                'Enjoy Your Movies',
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 28,
+                  fontWeight: FontWeight.bold,
                 ),
               ),
-            ),
-          ),
-
-          // =========================
-          // BOTTOM CONTENT
-          // =========================
-          SafeArea(
-            child: Column(
-              children: [
-                const Spacer(),
-
-                Container(
-                  width: double.infinity,
-                  padding: const EdgeInsets.fromLTRB(
-                    22,
-                    28,
-                    22,
-                    20,
-                  ),
-                  decoration: BoxDecoration(
-                    color: Colors.black.withOpacity(0.90),
-                    borderRadius: const BorderRadius.only(
-                      topLeft: Radius.circular(35),
-                      topRight: Radius.circular(35),
-                    ),
-                  ),
-                  child: Column(
-                    children: [
-                      // =========================
-                      // TITLE
-                      // =========================
-                      const Text(
-                        'Start Watching Now',
-                        textAlign: TextAlign.center,
+              const SizedBox(height: 16),
+              const Text(
+                'Discover movies and enjoy watching your favorite ones.',
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  color: Colors.grey,
+                  fontSize: 16,
+                ),
+              ),
+              const Spacer(),
+              Row(
+                children: [
+                  Expanded(
+                    child: OutlinedButton(
+                      onPressed: () {
+                        Navigator.pop(context);
+                      },
+                      style: OutlinedButton.styleFrom(
+                        side: const BorderSide(
+                          color: Color(0xFFF6BD00),
+                        ),
+                        minimumSize: const Size(double.infinity, 55),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(15),
+                        ),
+                      ),
+                      child: const Text(
+                        'Back',
                         style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 22,
+                          color: Color(0xFFF6BD00),
+                          fontSize: 18,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
-
-                      const SizedBox(height: 25),
-
-                      // =========================
-                      // FINISH BUTTON
-                      // =========================
-                      SizedBox(
-                        width: double.infinity,
-                        height: 58,
-                        child: ElevatedButton(
-                          onPressed: () {
-                            // هنا هنحط الشاشة الرئيسية
-                            // بعد ما نخلص الـ Onboarding
-                          },
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: const Color(0xFFFFE000),
-                            foregroundColor: Colors.black,
-                            elevation: 0,
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(18),
-                            ),
-                          ),
-                          child: const Text(
-                            'Finish',
-                            style: TextStyle(
-                              fontSize: 18,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                        ),
-                      ),
-
-                      const SizedBox(height: 15),
-
-                      // =========================
-                      // BACK BUTTON
-                      // =========================
-                      SizedBox(
-                        width: double.infinity,
-                        height: 58,
-                        child: OutlinedButton(
-                          onPressed: () {
-                            Navigator.pop(context);
-                          },
-                          style: OutlinedButton.styleFrom(
-                            foregroundColor: const Color(0xFFFFE000),
-                            side: const BorderSide(
-                              color: Color(0xFFFFE000),
-                              width: 2,
-                            ),
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(18),
-                            ),
-                          ),
-                          child: const Text(
-                            'Back',
-                            style: TextStyle(
-                              fontSize: 18,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                        ),
-                      ),
-                    ],
+                    ),
                   ),
-                ),
-              ],
-            ),
+                  const SizedBox(width: 16),
+                  Expanded(
+                    child: ElevatedButton(
+                      onPressed: () {
+                        Navigator.pushReplacement(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const LoginScreen(),
+                          ),
+                        );
+                      },
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: const Color(0xFFF6BD00),
+                        minimumSize: const Size(double.infinity, 55),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(15),
+                        ),
+                      ),
+                      child: const Text(
+                        'Finish',
+                        style: TextStyle(
+                          color: Colors.black,
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+              const SizedBox(height: 24),
+            ],
           ),
-        ],
+        ),
       ),
     );
   }

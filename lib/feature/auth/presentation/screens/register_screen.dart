@@ -1,258 +1,409 @@
+
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/gestures.dart';
 
 class RegisterScreen extends StatefulWidget {
-  const RegisterScreen({super.key});
+const RegisterScreen({super.key});
 
-  @override
-  State<RegisterScreen> createState() => _RegisterScreenState();
+@override
+State<RegisterScreen> createState() => _RegisterScreenState();
 }
 
 class _RegisterScreenState extends State<RegisterScreen> {
-  final _nameController = TextEditingController();
-  final _emailController = TextEditingController();
-  final _passwordController = TextEditingController();
-  final _confirmPasswordController = TextEditingController();
-  final _phoneController = TextEditingController();
+final TextEditingController nameController = TextEditingController();
+final TextEditingController emailController = TextEditingController();
+final TextEditingController passwordController = TextEditingController();
+final TextEditingController confirmPasswordController =
+TextEditingController();
+final TextEditingController phoneController = TextEditingController();
 
-  bool _obscurePassword = true;
-  bool _obscureConfirmPassword = true;
-  int _selectedAvatar = 1;
+bool _obscurePassword = true;
+bool _obscureConfirmPassword = true;
+bool _isLoading = false;
 
-  final List<String> _avatars = [
-    'assets/images/avatar1.png',
-    'assets/images/avatar2.png',
-    'assets/images/avatar3.png',
-  ];
+final List<String> _avatars = [
+'assets/images/avatar1.png',
+'assets/images/avatar2.png',
+'assets/images/avatar3.png',
+];
 
-  @override
-  void dispose() {
-    _nameController.dispose();
-    _emailController.dispose();
-    _passwordController.dispose();
-    _confirmPasswordController.dispose();
-    _phoneController.dispose();
-    super.dispose();
-  }
+int _selectedAvatar = 1;
 
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: const Color(0xFF1A1A1A),
-      body: SafeArea(
-        child: SingleChildScrollView(
-          padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Row(
-                children: [
-                  IconButton(
-                    icon: const Icon(Icons.arrow_back, color: Colors.white),
-                    onPressed: () => Navigator.pop(context),
-                  ),
-                  const Expanded(
-                    child: Center(
-                      child: Text(
-                        'Register',
-                        style: TextStyle(
-                          color: Colors.amber,
-                          fontSize: 18,
-                          fontWeight: FontWeight.w600,
-                        ),
-                      ),
-                    ),
-                  ),
-                  const SizedBox(width: 48),
-                ],
-              ),
-              const SizedBox(height: 24),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: List.generate(_avatars.length, (index) {
-                  final isSelected = _selectedAvatar == index;
-                  return GestureDetector(
-                    onTap: () => setState(() => _selectedAvatar = index),
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 8),
-                      child: CircleAvatar(
-                        radius: isSelected ? 40 : 32,
-                        backgroundColor: Colors.blue.shade100,
-                        backgroundImage: AssetImage(_avatars[index]),
-                      ),
-                    ),
-                  );
-                }),
-              ),
-              const SizedBox(height: 8),
-              const Center(
-                child: Text('Avatar', style: TextStyle(color: Colors.white70)),
-              ),
-              const SizedBox(height: 24),
-              _buildTextField(
-                controller: _nameController,
-                hint: 'Name',
-                icon: Icons.badge_outlined,
-              ),
-              const SizedBox(height: 14),
-              _buildTextField(
-                controller: _emailController,
-                hint: 'Email',
-                icon: Icons.email_outlined,
-                keyboardType: TextInputType.emailAddress,
-              ),
-              const SizedBox(height: 14),
-              _buildTextField(
-                controller: _passwordController,
-                hint: 'Password',
-                icon: Icons.lock_outline,
-                obscureText: _obscurePassword,
-                suffixIcon: IconButton(
-                  icon: Icon(
-                    _obscurePassword
-                        ? Icons.visibility_off
-                        : Icons.visibility,
-                    color: Colors.white54,
-                  ),
-                  onPressed: () {
-                    setState(() => _obscurePassword = !_obscurePassword);
-                  },
-                ),
-              ),
-              const SizedBox(height: 14),
-              _buildTextField(
-                controller: _confirmPasswordController,
-                hint: 'Confirm Password',
-                icon: Icons.lock_outline,
-                obscureText: _obscureConfirmPassword,
-                suffixIcon: IconButton(
-                  icon: Icon(
-                    _obscureConfirmPassword
-                        ? Icons.visibility_off
-                        : Icons.visibility,
-                    color: Colors.white54,
-                  ),
-                  onPressed: () {
-                    setState(() {
-                      _obscureConfirmPassword = !_obscureConfirmPassword;
-                    });
-                  },
-                ),
-              ),
-              const SizedBox(height: 14),
-              _buildTextField(
-                controller: _phoneController,
-                hint: 'Phone Number',
-                icon: Icons.phone_outlined,
-                keyboardType: TextInputType.phone,
-              ),
-              const SizedBox(height: 28),
-              SizedBox(
-                width: double.infinity,
-                height: 52,
-                child: ElevatedButton(
-                  onPressed: () {},
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.amber,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(30),
-                    ),
-                  ),
-                  child: const Text(
-                    'Create Account',
-                    style: TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.black,
-                    ),
-                  ),
-                ),
-              ),
-              const SizedBox(height: 16),
-              Center(
-                child: RichText(
-                  text: TextSpan(
-                    style: const TextStyle(color: Colors.white70),
-                    children: [
-                      const TextSpan(text: 'Already Have Account ? '),
-                      TextSpan(
-                        text: 'Login',
-                        style: const TextStyle(
-                          color: Colors.amber,
-                          fontWeight: FontWeight.bold,
-                        ),
-                        recognizer: TapGestureRecognizer()
-                          ..onTap = () {
-                            Navigator.pop(context);
-                          },
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-              const SizedBox(height: 20),
-              Center(
-                child: Container(
-                  padding: const EdgeInsets.symmetric(
-                      horizontal: 12, vertical: 6),
-                  decoration: BoxDecoration(
-                    color: const Color(0xFF2A2A2A),
-                    borderRadius: BorderRadius.circular(20),
-                  ),
-                  child: Row(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      const Text('🇺🇸', style: TextStyle(fontSize: 20)),
-                      const SizedBox(width: 8),
-                      Container(
-                        width: 30,
-                        height: 16,
-                        decoration: BoxDecoration(
-                          color: Colors.amber,
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                      ),
-                      const SizedBox(width: 8),
-                      const Text('🇪🇬', style: TextStyle(fontSize: 20)),
-                    ],
-                  ),
-                ),
-              ),
-              const SizedBox(height: 20),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
+@override
+void dispose() {
+nameController.dispose();
+emailController.dispose();
+passwordController.dispose();
+confirmPasswordController.dispose();
+phoneController.dispose();
+super.dispose();
+}
 
-  Widget _buildTextField({
-    required TextEditingController controller,
-    required String hint,
-    required IconData icon,
-    bool obscureText = false,
-    Widget? suffixIcon,
-    TextInputType keyboardType = TextInputType.text,
-  }) {
-    return TextField(
-      controller: controller,
-      obscureText: obscureText,
-      keyboardType: keyboardType,
-      style: const TextStyle(color: Colors.white),
-      decoration: InputDecoration(
-        hintText: hint,
-        hintStyle: const TextStyle(color: Colors.white54),
-        prefixIcon: Icon(icon, color: Colors.white54),
-        suffixIcon: suffixIcon,
-        filled: true,
-        fillColor: const Color(0xFF2A2A2A),
-        border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(16),
-          borderSide: BorderSide.none,
-        ),
-        contentPadding:
-        const EdgeInsets.symmetric(vertical: 16, horizontal: 16),
-      ),
-    );
-  }
+Future<void> _createAccount() async {
+final String name = nameController.text.trim();
+final String email = emailController.text.trim();
+final String password = passwordController.text;
+final String confirmPassword = confirmPasswordController.text;
+
+if (name.isEmpty ||
+email.isEmpty ||
+password.isEmpty ||
+confirmPassword.isEmpty) {
+_showMessage('Please fill in all required fields.');
+return;
+}
+
+if (password != confirmPassword) {
+_showMessage('Passwords do not match.');
+return;
+}
+
+if (password.length < 6) {
+_showMessage('Password must be at least 6 characters.');
+return;
+}
+
+setState(() {
+_isLoading = true;
+});
+
+try {
+final UserCredential credential =
+await FirebaseAuth.instance.createUserWithEmailAndPassword(
+email: email,
+password: password,
+);
+
+await credential.user?.updateDisplayName(name);
+
+if (!mounted) return;
+
+_showMessage('Account created successfully.');
+
+Navigator.pop(context);
+} on FirebaseAuthException catch (e) {
+String message;
+
+switch (e.code) {
+case 'email-already-in-use':
+message = 'This email is already registered.';
+break;
+
+case 'invalid-email':
+message = 'Please enter a valid email address.';
+break;
+
+case 'weak-password':
+message = 'The password is too weak.';
+break;
+
+case 'network-request-failed':
+message = 'Please check your internet connection.';
+break;
+
+default:
+message = e.message ?? 'Failed to create account.';
+}
+
+if (mounted) {
+_showMessage(message);
+}
+} catch (e) {
+if (mounted) {
+_showMessage('Something went wrong. Please try again.');
+}
+} finally {
+if (mounted) {
+setState(() {
+_isLoading = false;
+});
+}
+}
+}
+
+void _showMessage(String message) {
+ScaffoldMessenger.of(context).showSnackBar(
+SnackBar(
+content: Text(message),
+),
+);
+}
+
+Widget _buildTextField({
+required String hintText,
+required TextEditingController controller,
+bool obscureText = false,
+Widget? suffixIcon,
+TextInputType? keyboardType,
+}) {
+return TextField(
+controller: controller,
+obscureText: obscureText,
+keyboardType: keyboardType,
+style: const TextStyle(
+color: Colors.white,
+),
+decoration: InputDecoration(
+hintText: hintText,
+hintStyle: const TextStyle(
+color: Colors.grey,
+),
+filled: true,
+fillColor: const Color(0xFF1C1C1C),
+border: OutlineInputBorder(
+borderRadius: BorderRadius.circular(12),
+borderSide: BorderSide.none,
+),
+suffixIcon: suffixIcon,
+),
+);
+}
+
+@override
+Widget build(BuildContext context) {
+return Scaffold(
+backgroundColor: const Color(0xFF121312),
+appBar: AppBar(
+backgroundColor: const Color(0xFF121312),
+elevation: 0,
+leading: IconButton(
+icon: const Icon(
+Icons.arrow_back,
+color: Colors.white,
+),
+onPressed: () {
+Navigator.pop(context);
+},
+),
+title: const Text(
+'Create Account',
+style: TextStyle(
+color: Colors.white,
+fontWeight: FontWeight.bold,
+),
+),
+),
+body: SafeArea(
+child: SingleChildScrollView(
+padding: const EdgeInsets.symmetric(
+horizontal: 24,
+vertical: 16,
+),
+child: Column(
+crossAxisAlignment: CrossAxisAlignment.start,
+children: [
+const Text(
+'Create your account',
+style: TextStyle(
+color: Colors.white,
+fontSize: 28,
+fontWeight: FontWeight.bold,
+),
+),
+const SizedBox(height: 8),
+const Text(
+'Sign up to continue',
+style: TextStyle(
+color: Colors.grey,
+fontSize: 15,
+),
+),
+const SizedBox(height: 30),
+
+Center(
+child: Column(
+children: [
+CircleAvatar(
+radius: 48,
+backgroundColor: const Color(0xFF2A2A2A),
+backgroundImage: AssetImage(
+_avatars[_selectedAvatar],
+),
+),
+const SizedBox(height: 16),
+const Text(
+'Choose your avatar',
+style: TextStyle(
+color: Colors.white,
+fontSize: 15,
+),
+),
+const SizedBox(height: 12),
+Row(
+mainAxisAlignment: MainAxisAlignment.center,
+children: List.generate(
+_avatars.length,
+(index) {
+return GestureDetector(
+onTap: () {
+setState(() {
+_selectedAvatar = index;
+});
+},
+child: Container(
+margin:
+const EdgeInsets.symmetric(horizontal: 6),
+padding: const EdgeInsets.all(2),
+decoration: BoxDecoration(
+shape: BoxShape.circle,
+border: Border.all(
+color: _selectedAvatar == index
+? const Color(0xFFF6BD00)
+    : Colors.transparent,
+width: 2,
+),
+),
+child: CircleAvatar(
+radius: 25,
+backgroundImage: AssetImage(
+_avatars[index],
+),
+),
+),
+);
+},
+),
+),
+],
+),
+),
+
+const SizedBox(height: 30),
+
+_buildTextField(
+hintText: 'Full Name',
+controller: nameController,
+),
+
+const SizedBox(height: 16),
+
+_buildTextField(
+hintText: 'Email',
+controller: emailController,
+keyboardType: TextInputType.emailAddress,
+),
+
+const SizedBox(height: 16),
+
+_buildTextField(
+hintText: 'Phone Number',
+controller: phoneController,
+keyboardType: TextInputType.phone,
+),
+
+const SizedBox(height: 16),
+
+_buildTextField(
+hintText: 'Password',
+controller: passwordController,
+obscureText: _obscurePassword,
+suffixIcon: IconButton(
+icon: Icon(
+_obscurePassword
+? Icons.visibility_off
+    : Icons.visibility,
+color: Colors.grey,
+),
+onPressed: () {
+setState(() {
+_obscurePassword = !_obscurePassword;
+});
+},
+),
+),
+
+const SizedBox(height: 16),
+
+_buildTextField(
+hintText: 'Confirm Password',
+controller: confirmPasswordController,
+obscureText: _obscureConfirmPassword,
+suffixIcon: IconButton(
+icon: Icon(
+_obscureConfirmPassword
+? Icons.visibility_off
+    : Icons.visibility,
+color: Colors.grey,
+),
+onPressed: () {
+setState(() {
+_obscureConfirmPassword = !_obscureConfirmPassword;
+});
+},
+),
+),
+
+const SizedBox(height: 30),
+
+SizedBox(
+width: double.infinity,
+height: 55,
+child: ElevatedButton(
+onPressed: _isLoading ? null : _createAccount,
+style: ElevatedButton.styleFrom(
+backgroundColor: const Color(0xFFF6BD00),
+disabledBackgroundColor:
+const Color(0xFFF6BD00).withValues(alpha: 0.5),
+shape: RoundedRectangleBorder(
+borderRadius: BorderRadius.circular(15),
+),
+),
+child: _isLoading
+? const SizedBox(
+width: 24,
+height: 24,
+child: CircularProgressIndicator(
+strokeWidth: 2.5,
+color: Colors.black,
+),
+)
+    : const Text(
+'Create Account',
+style: TextStyle(
+color: Colors.black,
+fontSize: 18,
+fontWeight: FontWeight.bold,
+),
+),
+),
+),
+
+const SizedBox(height: 24),
+
+Center(
+child: GestureDetector(
+onTap: () {
+Navigator.pop(context);
+},
+child: RichText(
+text: const TextSpan(
+children: [
+TextSpan(
+text: 'Already have an account? ',
+style: TextStyle(
+color: Colors.grey,
+fontSize: 14,
+),
+),
+TextSpan(
+text: 'Login',
+style: TextStyle(
+color: Color(0xFFF6BD00),
+fontSize: 14,
+fontWeight: FontWeight.bold,
+),
+),
+],
+),
+),
+),
+),
+
+const SizedBox(height: 30),
+],
+),
+),
+),
+);
+}
 }
