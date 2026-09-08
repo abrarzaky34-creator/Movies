@@ -18,10 +18,7 @@ class OnboardingScreen extends StatelessWidget {
             left: -size.width * 0.2,
             width: size.width * 1.6,
             height: size.height * 0.9,
-            child: Transform.rotate(
-              angle: -0.2,
-              child: const MoviePosterGrid(),
-            ),
+            child: const MoviePosterGrid(),
           ),
 
           Positioned(
@@ -147,45 +144,17 @@ class MoviePosterGrid extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final List<String> posterUrls = [
-      'assets/images/fall-movies-he-poster-01.webp',
-      'assets/images/michael-movies-poster-01.webp',
-      'assets/images/now-you-see-me-now-you-dont-movies-he-poster-01.webp',
-      'assets/images/oppenheimer0515202301_580x.webp',
-      'assets/images/trending-paw-patrol-dino-movie-posters.webp',
-      'assets/images/wick-is-pain-movies-he-poster-01.webp',
-    ];
-
-    final repeatedUrls =
-    List.generate(5, (_) => posterUrls)
-        .expand((x) => x)
-        .toList();
-
-    return GridView.builder(
-      padding: EdgeInsets.zero,
-      physics: const NeverScrollableScrollPhysics(),
-      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-        crossAxisCount: 3,
-        childAspectRatio: 0.65,
-        crossAxisSpacing: 10,
-        mainAxisSpacing: 10,
-      ),
-      itemCount: repeatedUrls.length,
-      itemBuilder: (context, index) {
-        return ClipRRect(
-          borderRadius: BorderRadius.circular(12),
-          child: Image.asset(
-            repeatedUrls[index],
-            fit: BoxFit.cover,
-            errorBuilder: (context, error, stackTrace) {
-              return Container(
-                color: Colors.grey[900],
-                child: const Icon(
-                  Icons.movie,
-                  color: Colors.white24,
-                ),
-              );
-            },
+    return Image.asset(
+      'assets/images/Movies Posters Group.png',
+      fit: BoxFit.cover,
+      width: double.infinity,
+      height: double.infinity,
+      errorBuilder: (context, error, stackTrace) {
+        return Container(
+          color: Colors.grey[900],
+          child: const Icon(
+            Icons.movie,
+            color: Colors.white24,
           ),
         );
       },

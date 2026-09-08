@@ -27,7 +27,7 @@ class OnboardingScreen2 extends StatelessWidget {
                     borderRadius: BorderRadius.circular(25),
                     image: const DecorationImage(
                       image: AssetImage(
-                        'assets/images/wick-is-pain-movies-he-poster-01.webp',
+                        'assets/images/The Godfather 1.png',
                       ),
                       fit: BoxFit.cover,
                     ),
@@ -79,7 +79,7 @@ class OnboardingScreen2 extends StatelessWidget {
 
                           const SizedBox(height: 18),
 
-                          // NEXT
+
                           SizedBox(
                             width: double.infinity,
                             height: 58,
@@ -114,7 +114,7 @@ class OnboardingScreen2 extends StatelessWidget {
 
                           const SizedBox(height: 12),
 
-                          // BACK
+
                           SizedBox(
                             width: double.infinity,
                             height: 58,
