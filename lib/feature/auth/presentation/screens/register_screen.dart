@@ -7,6 +7,8 @@ import 'package:movies/feature/auth/logic/auth_cubit.dart';
 import 'package:movies/feature/auth/logic/auth_state.dart';
 
 class RegisterScreen extends StatelessWidget {
+  static const String routeName = 'register';
+
   const RegisterScreen({super.key});
 
   @override

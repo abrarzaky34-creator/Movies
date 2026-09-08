@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:firebase_core/firebase_core.dart';
+
+
+import 'feature/auth/presentation/screens/register_screen.dart';
 
 import 'firebase_options.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'core/theme/app_theme.dart';
-import 'feature/auth/presentation/screens/login_screen.dart';
-import 'feature/auth/presentation/screens/register_screen.dart';
 import 'feature/auth/presentation/screens/splash_screen.dart';
-import 'feature/auth/presentation/screens/forget_password_screen.dart'; // <-- أضفنا استيراد شاشة النسيان
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -25,10 +25,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Movies App',
       theme: AppTheme.darkTheme,
-      home: const LoginScreen(),
-      routes: {
-        ForgetPasswordScreen.routeName: (context) => const ForgetPasswordScreen(),
-      },
+      home: const SplashScreen(),
     );
   }
 }

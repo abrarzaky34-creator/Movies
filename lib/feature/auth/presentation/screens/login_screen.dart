@@ -4,9 +4,12 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movies/feature/auth/data/auth_service.dart';
 import 'package:movies/feature/auth/logic/auth_cubit.dart';
 import 'package:movies/feature/auth/logic/auth_state.dart';
+import 'forget_password_screen.dart';
 import 'register_screen.dart';
 
 class LoginScreen extends StatelessWidget {
+  static const String routeName = 'login';
+
   const LoginScreen({super.key});
 
   @override
@@ -68,7 +71,6 @@ class _LoginScreenContentState extends State<LoginScreenContent> {
                   backgroundColor: Colors.green,
                 ),
               );
-              // TODO: التوجيه للشاشة الرئيسية هنا بعد النجاح
             } else if (state is AuthError) {
               ScaffoldMessenger.of(context).showSnackBar(
                 SnackBar(
@@ -153,7 +155,9 @@ class _LoginScreenContentState extends State<LoginScreenContent> {
                     Align(
                       alignment: Alignment.centerRight,
                       child: TextButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          Navigator.pushNamed(context, ForgetPasswordScreen.routeName);
+                        },
                         child: const Text(
                           'Forget Password ?',
                           style: TextStyle(color: Color(0xFFE5B121)),
@@ -195,12 +199,7 @@ class _LoginScreenContentState extends State<LoginScreenContent> {
                         ),
                         GestureDetector(
                           onTap: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => const RegisterScreen(),
-                              ),
-                            );
+                            Navigator.pushNamed(context, RegisterScreen.routeName);
                           },
                           child: const Text(
                             'Create One',
