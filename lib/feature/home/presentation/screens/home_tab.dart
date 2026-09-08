@@ -10,7 +10,6 @@ import '../../logic/movies_bloc.dart';
 import '../widgets/available_now_slider.dart';
 class HomeTab extends StatelessWidget {
   const HomeTab({super.key});
-
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
@@ -18,43 +17,39 @@ class HomeTab extends StatelessWidget {
         ..add(const HomeMoviesRequested()),
       child: Scaffold(
         backgroundColor: AppColors.background,
-        appBar: AppBar(
-          backgroundColor: AppColors.background,
-          elevation: 0,
-          centerTitle: true,
-          title: const Text('Movies'),
-        ),
-        body: BlocBuilder<MoviesBloc, MoviesState>(
-          builder: (context, state) {
-            switch (state.status) {
-              case MoviesStatus.loading:
-              case MoviesStatus.initial:
-                return const Center(
-                  child: CircularProgressIndicator(color: AppColors.primary),
-                );
-              case MoviesStatus.error:
-                return Center(
-                  child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Text(
-                        state.errorMessage ?? 'Something went wrong',
-                        style: const TextStyle(color: AppColors.secondaryText),
-                      ),
-                      const SizedBox(height: 12),
-                      ElevatedButton(
-                        onPressed: () => context
-                            .read<MoviesBloc>()
-                            .add(const HomeMoviesRequested()),
-                        child: const Text('Retry'),
-                      ),
-                    ],
-                  ),
-                );
-              case MoviesStatus.loaded:
-                return _HomeContent(state: state);
-            }
-          },
+        body: SafeArea(
+          child: BlocBuilder<MoviesBloc, MoviesState>(
+            builder: (context, state) {
+              switch (state.status) {
+                case MoviesStatus.loading:
+                case MoviesStatus.initial:
+                  return const Center(
+                    child: CircularProgressIndicator(color: AppColors.primary),
+                  );
+                case MoviesStatus.error:
+                  return Center(
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Text(
+                          state.errorMessage ?? 'Something went wrong',
+                          style: const TextStyle(color: AppColors.secondaryText),
+                        ),
+                        const SizedBox(height: 12),
+                        ElevatedButton(
+                          onPressed: () => context
+                              .read<MoviesBloc>()
+                              .add(const HomeMoviesRequested()),
+                          child: const Text('Retry'),
+                        ),
+                      ],
+                    ),
+                  );
+                case MoviesStatus.loaded:
+                  return _HomeContent(state: state);
+              }
+            },
+          ),
         ),
       ),
     );

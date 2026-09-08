@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../logic/home_cubit.dart';
 import 'app_bottom_nav_bar.dart';
 import 'home_tab.dart';
-import 'search_tab_placeholder.dart';
+import 'search_tab.dart';
 import 'browse_tab_placeholder.dart';
 import 'profile_tab_placeholder.dart';
 
@@ -12,7 +12,7 @@ class MainLayoutScreen extends StatelessWidget {
 
   static const List<Widget> _tabs = [
     HomeTab(),
-    SearchTabPlaceholder(),
+    SearchTab(),
     BrowseTabPlaceholder(),
     ProfileTabPlaceholder(),
   ];
