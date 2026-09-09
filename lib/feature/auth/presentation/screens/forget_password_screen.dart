@@ -6,8 +6,6 @@ import 'package:movies/feature/auth/logic/auth_cubit.dart';
 import 'package:movies/feature/auth/logic/auth_state.dart';
 
 class ForgetPasswordScreen extends StatelessWidget {
-  static const String routeName = 'forget_password';
-
   const ForgetPasswordScreen({super.key});
 
   @override
@@ -51,7 +49,14 @@ class _ForgetPasswordContentState extends State<ForgetPasswordContent> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: const Color(0xFF121312),
       appBar: AppBar(
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back, color: Color(0xFFF6BD00)),
+          onPressed: () => Navigator.pop(context),
+        ),
         title: const Text(
           'Forget Password',
           style: TextStyle(
@@ -61,15 +66,8 @@ class _ForgetPasswordContentState extends State<ForgetPasswordContent> {
           ),
         ),
         centerTitle: true,
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back, color: Color(0xFFF6BD00)),
-          onPressed: () {
-            Navigator.pop(context);
-          },
-        ),
-        backgroundColor: Colors.transparent,
-        elevation: 0,
       ),
+<<<<<<< Updated upstream
       body: SafeArea(
         child: BlocConsumer<AuthCubit, AuthState>(
           listener: (context, state) {
@@ -151,6 +149,57 @@ class _ForgetPasswordContentState extends State<ForgetPasswordContent> {
               ),
             );
           },
+=======
+      body: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 20),
+        child: Column(
+          children: [
+            const Spacer(),
+            Image.asset(
+              'assets/forget_password_img.png',
+              height: 220,
+              fit: BoxFit.contain,
+            ),
+            const SizedBox(height: 30),
+            TextField(
+              style: const TextStyle(color: Colors.white),
+              decoration: InputDecoration(
+                hintText: 'Email',
+                hintStyle: const TextStyle(color: Colors.white54),
+                prefixIcon: const Icon(Icons.email, color: Colors.white54),
+                filled: true,
+                fillColor: const Color(0xFF282A28),
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(15),
+                  borderSide: BorderSide.none,
+                ),
+              ),
+            ),
+            const SizedBox(height: 25),
+            SizedBox(
+              width: double.infinity,
+              height: 55,
+              child: ElevatedButton(
+                onPressed: () {},
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: const Color(0xFFF6BD00),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(15),
+                  ),
+                ),
+                child: const Text(
+                  'Verify Email',
+                  style: TextStyle(
+                    color: Colors.black,
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ),
+            ),
+            const Spacer(),
+          ],
+>>>>>>> Stashed changes
         ),
       ),
     );

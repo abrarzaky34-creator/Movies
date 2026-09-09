@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+<<<<<<< Updated upstream
 import 'package:flutter/gestures.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -8,6 +9,8 @@ import 'package:movies/feature/auth/logic/auth_state.dart';
 
 class RegisterScreen extends StatelessWidget {
   static const String routeName = 'register';
+=======
+>>>>>>> Stashed changes
 
   const RegisterScreen({super.key});
 
@@ -20,6 +23,7 @@ class RegisterScreen extends StatelessWidget {
   }
 }
 
+<<<<<<< Updated upstream
 class RegisterScreenContent extends StatefulWidget {
   const RegisterScreenContent({super.key});
 
@@ -53,6 +57,10 @@ class _RegisterScreenContentState extends State<RegisterScreenContent> {
     _phoneController.dispose();
     super.dispose();
   }
+=======
+class _RegisterScreenState extends State<RegisterScreen> {
+  int selectedAvatar = 1;
+>>>>>>> Stashed changes
 
   void _onRegisterPressed() {
     final name = _nameController.text.trim();
@@ -88,6 +96,7 @@ class _RegisterScreenContentState extends State<RegisterScreenContent> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+<<<<<<< Updated upstream
       backgroundColor: const Color(0xFF1A1A1A),
       body: SafeArea(
         child: BlocConsumer<AuthCubit, AuthState>(
@@ -302,37 +311,200 @@ class _RegisterScreenContentState extends State<RegisterScreenContent> {
               ),
             );
           },
+=======
+      backgroundColor: const Color(0xFF121312),
+      appBar: AppBar(
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back, color: Color(0xFFF6BD00)),
+          onPressed: () => Navigator.pop(context),
         ),
+        title: const Text(
+          'Register',
+          style: TextStyle(
+            color: Color(0xFFF6BD00),
+            fontSize: 18,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+        centerTitle: true,
       ),
-    );
-  }
-
-  Widget _buildTextField({
-    required TextEditingController controller,
-    required String hint,
-    required IconData icon,
-    bool obscureText = false,
-    Widget? suffixIcon,
-    TextInputType keyboardType = TextInputType.text,
-  }) {
-    return TextField(
-      controller: controller,
-      obscureText: obscureText,
-      keyboardType: keyboardType,
-      style: const TextStyle(color: Colors.white),
-      decoration: InputDecoration(
-        hintText: hint,
-        hintStyle: const TextStyle(color: Colors.white54),
-        prefixIcon: Icon(icon, color: Colors.white54),
-        suffixIcon: suffixIcon,
-        filled: true,
-        fillColor: const Color(0xFF2A2A2A),
-        border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(16),
-          borderSide: BorderSide.none,
+      body: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 20),
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              const SizedBox(height: 10),
+              SizedBox(
+                height: 100,
+                child: ListView.builder(
+                  scrollDirection: Axis.horizontal,
+                  itemCount: 9,
+                  itemBuilder: (context, index) {
+                    final avatarNum = index + 1;
+                    final isSelected = avatarNum == selectedAvatar;
+                    return GestureDetector(
+                      onTap: () => setState(() => selectedAvatar = avatarNum),
+                      child: Container(
+                        margin: const EdgeInsets.symmetric(horizontal: 8),
+                        padding: const EdgeInsets.all(3),
+                        decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          border: Border.all(
+                            color: isSelected ? const Color(0xFFF6BD00) : Colors.transparent,
+                            width: 2,
+                          ),
+                        ),
+                        child: CircleAvatar(
+                          radius: 36,
+                          backgroundImage: AssetImage('assets/avatar$avatarNum.png'),
+                        ),
+                      ),
+                    );
+                  },
+                ),
+              ),
+              const SizedBox(height: 10),
+              const Text('Avatar', style: TextStyle(color: Colors.white, fontSize: 14)),
+              const SizedBox(height: 20),
+              TextField(
+                style: const TextStyle(color: Colors.white),
+                decoration: InputDecoration(
+                  hintText: 'Name',
+                  hintStyle: const TextStyle(color: Colors.white54),
+                  prefixIcon: const Icon(Icons.badge, color: Colors.white54),
+                  filled: true,
+                  fillColor: const Color(0xFF282A28),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(15),
+                    borderSide: BorderSide.none,
+                  ),
+                ),
+              ),
+              const SizedBox(height: 15),
+              TextField(
+                style: const TextStyle(color: Colors.white),
+                decoration: InputDecoration(
+                  hintText: 'Email',
+                  hintStyle: const TextStyle(color: Colors.white54),
+                  prefixIcon: const Icon(Icons.email, color: Colors.white54),
+                  filled: true,
+                  fillColor: const Color(0xFF282A28),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(15),
+                    borderSide: BorderSide.none,
+                  ),
+                ),
+              ),
+              const SizedBox(height: 15),
+              TextField(
+                obscureText: true,
+                style: const TextStyle(color: Colors.white),
+                decoration: InputDecoration(
+                  hintText: 'Password',
+                  hintStyle: const TextStyle(color: Colors.white54),
+                  prefixIcon: const Icon(Icons.lock, color: Colors.white54),
+                  suffixIcon: const Icon(Icons.visibility_off, color: Colors.white54),
+                  filled: true,
+                  fillColor: const Color(0xFF282A28),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(15),
+                    borderSide: BorderSide.none,
+                  ),
+                ),
+              ),
+              const SizedBox(height: 15),
+              TextField(
+                obscureText: true,
+                style: const TextStyle(color: Colors.white),
+                decoration: InputDecoration(
+                  hintText: 'Confirm Password',
+                  hintStyle: const TextStyle(color: Colors.white54),
+                  prefixIcon: const Icon(Icons.lock, color: Colors.white54),
+                  suffixIcon: const Icon(Icons.visibility_off, color: Colors.white54),
+                  filled: true,
+                  fillColor: const Color(0xFF282A28),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(15),
+                    borderSide: BorderSide.none,
+                  ),
+                ),
+              ),
+              const SizedBox(height: 15),
+              TextField(
+                style: const TextStyle(color: Colors.white),
+                decoration: InputDecoration(
+                  hintText: 'Phone Number',
+                  hintStyle: const TextStyle(color: Colors.white54),
+                  prefixIcon: const Icon(Icons.phone, color: Colors.white54),
+                  filled: true,
+                  fillColor: const Color(0xFF282A28),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(15),
+                    borderSide: BorderSide.none,
+                  ),
+                ),
+              ),
+              const SizedBox(height: 25),
+              SizedBox(
+                width: double.infinity,
+                height: 55,
+                child: ElevatedButton(
+                  onPressed: () {},
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: const Color(0xFFF6BD00),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(15),
+                    ),
+                  ),
+                  child: const Text(
+                    'Create Account',
+                    style: TextStyle(
+                      color: Colors.black,
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
+              ),
+              const SizedBox(height: 15),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  const Text('Already Have Account? ', style: TextStyle(color: Colors.white)),
+                  GestureDetector(
+                    onTap: () => Navigator.pop(context),
+                    child: const Text(
+                      'Login',
+                      style: TextStyle(
+                        color: Color(0xFFF6BD00),
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+              const SizedBox(height: 20),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  ClipRRect(
+                    borderRadius: BorderRadius.circular(20),
+                    child: Image.asset('assets/eg.png', width: 38, height: 26, fit: BoxFit.cover),
+                  ),
+                  const SizedBox(width: 15),
+                  ClipRRect(
+                    borderRadius: BorderRadius.circular(20),
+                    child: Image.asset('assets/LR.png', width: 38, height: 26, fit: BoxFit.cover),
+                  ),
+                ],
+              ),
+              const SizedBox(height: 20),
+            ],
+          ),
+>>>>>>> Stashed changes
         ),
-        contentPadding:
-        const EdgeInsets.symmetric(vertical: 16, horizontal: 16),
       ),
     );
   }

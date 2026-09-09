@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+<<<<<<< Updated upstream
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:movies/feature/auth/data/auth_service.dart';
@@ -58,10 +59,18 @@ class _LoginScreenContentState extends State<LoginScreenContent> {
   }
 
   @override
+=======
+
+class LoginScreen extends StatelessWidget {
+  const LoginScreen({super.key});
+
+  @override
+>>>>>>> Stashed changes
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: const Color(0xFF121312),
       body: SafeArea(
+<<<<<<< Updated upstream
         child: BlocConsumer<AuthCubit, AuthState>(
           listener: (context, state) {
             if (state is AuthSuccess) {
@@ -302,6 +311,149 @@ class _LoginScreenContentState extends State<LoginScreenContent> {
               ),
             );
           },
+=======
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 20),
+          child: SingleChildScrollView(
+            child: Column(
+              children: [
+                const SizedBox(height: 40),
+                Image.asset('assets/logo.png', height: 120),
+                const SizedBox(height: 40),
+                TextField(
+                  style: const TextStyle(color: Colors.white),
+                  decoration: InputDecoration(
+                    hintText: 'Email',
+                    hintStyle: const TextStyle(color: Colors.white54),
+                    prefixIcon: const Icon(Icons.email, color: Colors.white54),
+                    filled: true,
+                    fillColor: const Color(0xFF282A28),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(15),
+                      borderSide: BorderSide.none,
+                    ),
+                  ),
+                ),
+                const SizedBox(height: 15),
+                TextField(
+                  obscureText: true,
+                  style: const TextStyle(color: Colors.white),
+                  decoration: InputDecoration(
+                    hintText: 'Password',
+                    hintStyle: const TextStyle(color: Colors.white54),
+                    prefixIcon: const Icon(Icons.lock, color: Colors.white54),
+                    suffixIcon: const Icon(Icons.visibility_off, color: Colors.white54),
+                    filled: true,
+                    fillColor: const Color(0xFF282A28),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(15),
+                      borderSide: BorderSide.none,
+                    ),
+                  ),
+                ),
+                Align(
+                  alignment: Alignment.centerRight,
+                  child: TextButton(
+                    onPressed: () {},
+                    child: const Text(
+                      'Forget Password?',
+                      style: TextStyle(color: Color(0xFFF6BD00)),
+                    ),
+                  ),
+                ),
+                const SizedBox(height: 15),
+                SizedBox(
+                  width: double.infinity,
+                  height: 55,
+                  child: ElevatedButton(
+                    onPressed: () {},
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: const Color(0xFFF6BD00),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(15),
+                      ),
+                    ),
+                    child: const Text(
+                      'Login',
+                      style: TextStyle(
+                        color: Colors.black,
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
+                ),
+                const SizedBox(height: 15),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    const Text("Don't Have Account? ", style: TextStyle(color: Colors.white)),
+                    GestureDetector(
+                      onTap: () {},
+                      child: const Text(
+                        'Create One',
+                        style: TextStyle(
+                          color: Color(0xFFF6BD00),
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 20),
+                const Row(
+                  children: [
+                    Expanded(child: Divider(color: Color(0xFFF6BD00))),
+                    Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 10),
+                      child: Text('OR', style: TextStyle(color: Color(0xFFF6BD00))),
+                    ),
+                    Expanded(child: Divider(color: Color(0xFFF6BD00))),
+                  ],
+                ),
+                const SizedBox(height: 20),
+                SizedBox(
+                  width: double.infinity,
+                  height: 55,
+                  child: ElevatedButton.icon(
+                    onPressed: () {},
+                    icon: Image.asset('assets/google.png', height: 24),
+                    label: const Text(
+                      'Login With Google',
+                      style: TextStyle(
+                        color: Colors.black,
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: const Color(0xFFF6BD00),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(15),
+                      ),
+                    ),
+                  ),
+                ),
+                const SizedBox(height: 25),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    ClipRRect(
+                      borderRadius: BorderRadius.circular(20),
+                      child: Image.asset('assets/eg.png', width: 38, height: 26, fit: BoxFit.cover),
+                    ),
+                    const SizedBox(width: 15),
+                    ClipRRect(
+                      borderRadius: BorderRadius.circular(20),
+                      child: Image.asset('assets/LR.png', width: 38, height: 26, fit: BoxFit.cover),
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 20),
+              ],
+            ),
+          ),
+>>>>>>> Stashed changes
         ),
       ),
     );
