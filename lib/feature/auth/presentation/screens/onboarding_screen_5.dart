@@ -10,19 +10,15 @@ class OnboardingScreen5 extends StatelessWidget {
       backgroundColor: Colors.black,
       body: Stack(
         children: [
-          // =========================
-          // FULL SCREEN IMAGE
-          // =========================
+
           Positioned.fill(
             child: Image.asset(
-              'assets/images/fall-movies-he-poster-01.webp',
+              'assets/images/5.png',
               fit: BoxFit.cover,
             ),
           ),
 
-          // =========================
-          // DARK GRADIENT
-          // =========================
+
           Positioned.fill(
             child: Container(
               decoration: BoxDecoration(
@@ -46,9 +42,7 @@ class OnboardingScreen5 extends StatelessWidget {
             ),
           ),
 
-          // =========================
-          // BOTTOM CONTENT
-          // =========================
+
           SafeArea(
             child: Column(
               children: [
@@ -71,9 +65,7 @@ class OnboardingScreen5 extends StatelessWidget {
                   ),
                   child: Column(
                     children: [
-                      // =========================
-                      // TITLE
-                      // =========================
+
                       const Text(
                         'Rate, Review, and Learn',
                         textAlign: TextAlign.center,
@@ -86,9 +78,7 @@ class OnboardingScreen5 extends StatelessWidget {
 
                       const SizedBox(height: 12),
 
-                      // =========================
-                      // DESCRIPTION
-                      // =========================
+
                       const Text(
                         "Share your thoughts on the movies\n"
                             "you've watched. Dive deep into film\n"
@@ -105,9 +95,8 @@ class OnboardingScreen5 extends StatelessWidget {
 
                       const SizedBox(height: 25),
 
-                      // =========================
-                      // NEXT BUTTON
-                      // =========================
+
+
                       SizedBox(
                         width: double.infinity,
                         height: 58,
@@ -141,9 +130,7 @@ class OnboardingScreen5 extends StatelessWidget {
 
                       const SizedBox(height: 15),
 
-                      // =========================
-                      // BACK BUTTON
-                      // =========================
+
                       SizedBox(
                         width: double.infinity,
                         height: 58,
