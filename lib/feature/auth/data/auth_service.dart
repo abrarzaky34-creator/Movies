@@ -1,73 +1,37 @@
 import 'package:firebase_auth/firebase_auth.dart';
 
 class AuthService {
-  final FirebaseAuth _auth = FirebaseAuth.instance;
+  final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
 
-<<<<<<< Updated upstream
-  Future<UserCredential> registerWithEmail({
+  // تسجيل الدخول
+  Future<UserCredential> login({
     required String email,
     required String password,
   }) async {
-    try {
-      UserCredential userCredential =
-      await _auth.createUserWithEmailAndPassword(
-        email: email,
-        password: password,
-      );
-      return userCredential;
-    } on FirebaseAuthException catch (e) {
-      throw e.message ?? 'Authentication failed';
-    } catch (e) {
-      throw 'An unexpected error occurred';
-    }
-  }
-
-  Future<UserCredential> loginWithEmail({
-    required String email,
-    required String password,
-  }) async {
-    try {
-      UserCredential userCredential = await _auth.signInWithEmailAndPassword(
-        email: email,
-        password: password,
-      );
-      return userCredential;
-    } on FirebaseAuthException catch (e) {
-      throw e.message ?? 'Authentication failed';
-    } catch (e) {
-      throw 'An unexpected error occurred';
-    }
-  }
-
-  Future<void> resetPassword(String email) async {
-    try {
-      await _auth.sendPasswordResetEmail(email: email);
-    } on FirebaseAuthException catch (e) {
-      throw e.message ?? 'Failed to send password reset email';
-    } catch (e) {
-      throw 'An unexpected error occurred';
-    }
-  }
-
-  Future<void> signOut() async {
-    await _auth.signOut();
-=======
-  Future<UserCredential?> login(String email, String password) async {
-    return await _auth.signInWithEmailAndPassword(
+    return await _firebaseAuth.signInWithEmailAndPassword(
       email: email,
       password: password,
     );
   }
 
-  Future<UserCredential?> register(String email, String password) async {
-    return await _auth.createUserWithEmailAndPassword(
+  // إنشاء حساب جديد
+  Future<UserCredential> register({
+    required String email,
+    required String password,
+  }) async {
+    return await _firebaseAuth.createUserWithEmailAndPassword(
       email: email,
       password: password,
     );
   }
 
-  Future<void> sendPasswordReset(String email) async {
-    await _auth.sendPasswordResetEmail(email: email);
->>>>>>> Stashed changes
+  // استعادة كلمة السر
+  Future<void> resetPassword({required String email}) async {
+    await _firebaseAuth.sendPasswordResetEmail(email: email);
+  }
+
+  // تسجيل الخروج
+  Future<void> logout() async {
+    await _firebaseAuth.signOut();
   }
 }

@@ -1,23 +1,19 @@
+import 'package:firebase_auth/firebase_auth.dart';
+
 abstract class AuthState {}
 
-class AuthInitial extends AuthState {}
+class AuthInitialState extends AuthState {}
 
-class AuthLoading extends AuthState {}
+class AuthLoadingState extends AuthState {}
 
-<<<<<<< Updated upstream
-class AuthSuccess extends AuthState {
-  final String message;
-  AuthSuccess(this.message);
+class AuthSuccessState extends AuthState {
+  final User user;
+  AuthSuccessState(this.user);
 }
 
-class AuthError extends AuthState {
-  final String error;
-  AuthError(this.error);
-=======
-class AuthSuccess extends AuthState {}
-
-class AuthError extends AuthState {
-  final String message;
-  AuthError(this.message);
->>>>>>> Stashed changes
+class AuthErrorState extends AuthState {
+  final String errorMessage;
+  AuthErrorState(this.errorMessage);
 }
+
+class PasswordResetSentState extends AuthState {}
