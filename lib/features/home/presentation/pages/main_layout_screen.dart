@@ -4,7 +4,7 @@ import '../cubit/home_cubit.dart';
 import '../widgets/app_bottom_nav_bar.dart';
 import 'home_tab.dart';
 import 'search_tab_placeholder.dart';
-import 'browse_tab_placeholder.dart';
+import 'browse_tab.dart';
 import 'profile_tab_placeholder.dart';
 
 class MainLayoutScreen extends StatelessWidget {
@@ -13,7 +13,7 @@ class MainLayoutScreen extends StatelessWidget {
   static const List<Widget> _tabs = [
     HomeTab(),
     SearchTabPlaceholder(),
-    BrowseTabPlaceholder(),
+    BrowseTab(),
     ProfileTabPlaceholder(),
   ];
 
