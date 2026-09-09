@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../cubit/update_profile_cubit.dart';
-
 import '../../../../core/routes/app_routes.dart';
 
 class UpdateProfileScreen extends StatefulWidget {
@@ -23,7 +22,6 @@ class _UpdateProfileScreenState extends State<UpdateProfileScreen> {
   @override
   void initState() {
     super.initState();
-
     nameController = TextEditingController(text: 'John Safwat');
     phoneController = TextEditingController(text: '01200000000');
   }
@@ -69,7 +67,6 @@ class _UpdateProfileScreenState extends State<UpdateProfileScreen> {
                       setState(() {
                         selectedAvatar = avatarPath;
                       });
-
                       Navigator.pop(context);
                     },
                     child: CircleAvatar(
@@ -95,9 +92,7 @@ class _UpdateProfileScreenState extends State<UpdateProfileScreen> {
           if (state is UpdateProfileSuccess) {
             ScaffoldMessenger.of(context).showSnackBar(
               const SnackBar(
-                content: Text(
-                  'Operation completed successfully.',
-                ),
+                content: Text('Operation completed successfully.'),
               ),
             );
           }
@@ -135,249 +130,158 @@ class _UpdateProfileScreenState extends State<UpdateProfileScreen> {
           body: SafeArea(
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16.0),
-              child: Column(
-                children: [
-                  const SizedBox(height: 10),
-
-                  // Avatar + Pick Avatar Text
-                  GestureDetector(
-                    onTap: () => _showAvatarBottomSheet(context),
-                    child: Column(
-                      children: [
-                        CircleAvatar(
-                          radius: 55,
-                          backgroundColor: Colors.transparent,
-                          backgroundImage: AssetImage(selectedAvatar),
-                        ),
-                        const SizedBox(height: 10),
-                        const Text(
-                          'Pick Avatar',
-                          style: TextStyle(
-                            color: Color(0xFFF6BD00),
-                            fontSize: 16,
-                            fontWeight: FontWeight.w500,
+              child: SingleChildScrollView(
+                child: Column(
+                  children: [
+                    const SizedBox(height: 10),
+                    GestureDetector(
+                      onTap: () => _showAvatarBottomSheet(context),
+                      child: Column(
+                        children: [
+                          CircleAvatar(
+                            radius: 55,
+                            backgroundColor: Colors.transparent,
+                            backgroundImage: AssetImage(selectedAvatar),
                           ),
-                        ),
-                      ],
-                    ),
-                  ),
-
-                  const SizedBox(height: 25),
-
-                  // Name Field
-                  TextField(
-                    controller: nameController,
-                    style: const TextStyle(color: Colors.white),
-                    decoration: InputDecoration(
-                      prefixIcon: const Icon(
-                        Icons.person,
-                        color: Colors.white70,
-                      ),
-                      filled: true,
-                      fillColor: const Color(0xFF282A28),
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(12),
-                        borderSide: BorderSide.none,
-                      ),
-                      enabledBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(12),
-                        borderSide: BorderSide.none,
-                      ),
-                      focusedBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(12),
-                        borderSide: BorderSide.none,
-                      ),
-                    ),
-                  ),
-
-                  const SizedBox(height: 16),
-
-              // Name Field
-              TextField(
-                controller: nameController,
-                style: const TextStyle(color: Colors.white),
-                decoration: InputDecoration(
-                  prefixIcon: const Icon(Icons.person, color: Colors.white70),
-                  filled: true,
-                  fillColor: const Color(0xFF282A28),
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(12),
-                    borderSide: BorderSide.none,
-                  ),
-                  enabledBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(12),
-                    borderSide: BorderSide.none,
-                  ),
-                  focusedBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(12),
-                    borderSide: BorderSide.none,
-                  ),
-                ),
-              ),
-              const SizedBox(height: 16),
-
-              // Phone Field
-              TextField(
-                controller: phoneController,
-                style: const TextStyle(color: Colors.white),
-                keyboardType: TextInputType.phone,
-                decoration: InputDecoration(
-                  prefixIcon: const Icon(Icons.phone, color: Colors.white70),
-                  filled: true,
-                  fillColor: const Color(0xFF282A28),
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(12),
-                    borderSide: BorderSide.none,
-                  ),
-                  enabledBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(12),
-                    borderSide: BorderSide.none,
-                  ),
-                  focusedBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(12),
-                    borderSide: BorderSide.none,
-                  ),
-                ),
-              ),
-              const SizedBox(height: 16),
-
-              // Reset Password Text
-              Align(
-                alignment: Alignment.centerLeft,
-                child: TextButton(
-                  onPressed: () {
-                    Navigator.pushNamed(context, AppRoutes.forgetPassword);
-                  },
-                  child: const Text(
-                    'Reset Password',
-                    style: TextStyle(color: Colors.white, fontSize: 16),
-                  ),
-                ),
-              ),
-              const Spacer(),
-
-              // Delete Account Button
-              SizedBox(
-                width: double.infinity,
-                height: 50,
-                child: ElevatedButton(
-                  onPressed: () {},
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: const Color(0xFFE52424),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(12),
-                    ),
-                  ),
-
-                  const SizedBox(height: 16),
-
-                  // Reset Password
-                  Align(
-                    alignment: Alignment.centerLeft,
-                    child: BlocBuilder<UpdateProfileCubit,
-                        UpdateProfileState>(
-                      builder: (context, state) {
-                        final bool isLoading =
-                        state is UpdateProfileLoading;
-
-                        return TextButton(
-                          onPressed: isLoading
-                              ? null
-                              : () {
-                            context
-                                .read<UpdateProfileCubit>()
-                                .sendPasswordResetEmail();
-                          },
-                          child: const Text(
-                            'Reset Password',
+                          const SizedBox(height: 10),
+                          const Text(
+                            'Pick Avatar',
                             style: TextStyle(
-                              color: Colors.white,
+                              color: Color(0xFFF6BD00),
                               fontSize: 16,
+                              fontWeight: FontWeight.w500,
                             ),
                           ),
-                        );
-                      },
+                        ],
+                      ),
                     ),
-                  ),
-
-                  const Spacer(),
-
-                  // Delete Account Button
-                  SizedBox(
-                    width: double.infinity,
-                    height: 50,
-                    child: ElevatedButton(
-                      onPressed: () {},
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: const Color(0xFFE52424),
-                        shape: RoundedRectangleBorder(
+                    const SizedBox(height: 25),
+                    TextField(
+                      controller: nameController,
+                      style: const TextStyle(color: Colors.white),
+                      decoration: InputDecoration(
+                        prefixIcon: const Icon(
+                          Icons.person,
+                          color: Colors.white70,
+                        ),
+                        filled: true,
+                        fillColor: const Color(0xFF282A28),
+                        border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(12),
-                        ),
-                      ),
-                      child: const Text(
-                        'Delete Account',
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 16,
-                          fontWeight: FontWeight.bold,
+                          borderSide: BorderSide.none,
                         ),
                       ),
                     ),
-                  ),
-
-                  const SizedBox(height: 12),
-
-                  // Update Data Button
-                  SizedBox(
-                    width: double.infinity,
-                    height: 50,
-                    child: BlocBuilder<UpdateProfileCubit,
-                        UpdateProfileState>(
-                      builder: (context, state) {
-                        final bool isLoading =
-                        state is UpdateProfileLoading;
-
-                        return ElevatedButton(
-                          onPressed: isLoading
-                              ? null
-                              : () {
-                            context
-                                .read<UpdateProfileCubit>()
-                                .updateProfile(
-                              name: nameController.text,
-                            );
-                          },
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: const Color(0xFFF6BD00),
-                            disabledBackgroundColor: Colors.grey,
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(12),
-                            ),
-                          ),
-                          child: isLoading
-                              ? const SizedBox(
-                            width: 24,
-                            height: 24,
-                            child: CircularProgressIndicator(
-                              strokeWidth: 2,
-                              color: Colors.black,
-                            ),
-                          )
-                              : const Text(
-                            'Update Data',
-                            style: TextStyle(
-                              color: Colors.black,
-                              fontSize: 16,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                        );
-                      },
+                    const SizedBox(height: 16),
+                    TextField(
+                      controller: phoneController,
+                      style: const TextStyle(color: Colors.white),
+                      keyboardType: TextInputType.phone,
+                      decoration: InputDecoration(
+                        prefixIcon: const Icon(
+                          Icons.phone,
+                          color: Colors.white70,
+                        ),
+                        filled: true,
+                        fillColor: const Color(0xFF282A28),
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(12),
+                          borderSide: BorderSide.none,
+                        ),
+                      ),
                     ),
-                  ),
+                    const SizedBox(height: 16),
+                    Align(
+                      alignment: Alignment.centerLeft,
+                      child: TextButton(
+                        onPressed: () {
+                          Navigator.pushNamed(
+                            context,
+                            AppRoutes.forgetPassword,
+                          );
+                        },
+                        child: const Text(
+                          'Reset Password',
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 16,
+                          ),
+                        ),
+                      ),
+                    ),
+                    const SizedBox(height: 40),
+                    SizedBox(
+                      width: double.infinity,
+                      height: 50,
+                      child: ElevatedButton(
+                        onPressed: () {},
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: const Color(0xFFE52424),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(12),
+                          ),
+                        ),
+                        child: const Text(
+                          'Delete Account',
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 16,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ),
+                    ),
+                    const SizedBox(height: 12),
+                    SizedBox(
+                      width: double.infinity,
+                      height: 50,
+                      child: BlocBuilder<UpdateProfileCubit,
+                          UpdateProfileState>(
+                        builder: (context, state) {
+                          final bool isLoading =
+                          state is UpdateProfileLoading;
 
-                  const SizedBox(height: 16),
-                ],
+                          return ElevatedButton(
+                            onPressed: isLoading
+                                ? null
+                                : () {
+                              context
+                                  .read<UpdateProfileCubit>()
+                                  .updateProfile(
+                                name: nameController.text,
+                              );
+                            },
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: const Color(0xFFF6BD00),
+                              disabledBackgroundColor: Colors.grey,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(12),
+                              ),
+                            ),
+                            child: isLoading
+                                ? const SizedBox(
+                              width: 24,
+                              height: 24,
+                              child: CircularProgressIndicator(
+                                strokeWidth: 2,
+                                color: Colors.black,
+                              ),
+                            )
+                                : const Text(
+                              'Update Data',
+                              style: TextStyle(
+                                color: Colors.black,
+                                fontSize: 16,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          );
+                        },
+                      ),
+                    ),
+                    const SizedBox(height: 16),
+                  ],
+                ),
               ),
             ),
           ),
