@@ -76,12 +76,41 @@ class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
                 children: [
                   const SizedBox(height: 20),
 
-                  Center(
-                    child: Image.asset(
-                      'assets/images/forget_password_img.png',
-                      height: 320,
-                      width: double.infinity,
-                      fit: BoxFit.contain,
+              Center(
+                child: Image.asset(
+                  'assets/images/forget_password_img.png',
+                  height: 320,
+                  width: double.infinity,
+                  fit: BoxFit.contain,
+                ),
+              ),
+              const SizedBox(height: 32),
+
+              TextField(
+                style: const TextStyle(color: Colors.white),
+                decoration: InputDecoration(
+                  hintText: 'Email',
+                  hintStyle: const TextStyle(color: Colors.grey),
+                  prefixIcon: const Icon(Icons.email, color: Colors.white),
+                  filled: true,
+                  fillColor: const Color(0xFF282A28),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(15),
+                    borderSide: BorderSide.none,
+                  ),
+                ),
+              ),
+              const SizedBox(height: 24),
+              SizedBox(
+                height: 55,
+                child: ElevatedButton(
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: const Color(0xFFF6BD00),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(15),
                     ),
                   ),
 

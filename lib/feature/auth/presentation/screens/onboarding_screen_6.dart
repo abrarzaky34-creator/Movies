@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'login_screen.dart';
+import '../../../../core/routes/app_routes.dart';
 
 class OnboardingScreen6 extends StatelessWidget {
   const OnboardingScreen6({super.key});
@@ -7,63 +7,133 @@ class OnboardingScreen6 extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFF121312),
-      body: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 24),
-          child: Column(
-            children: [
-              const Spacer(),
-              Image.asset(
-                'assets/images/onboarding6.png',
-                height: 300,
-                fit: BoxFit.contain,
-              ),
-              const SizedBox(height: 40),
-              const Text(
-                'Enjoy Your Movies',
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 28,
-                  fontWeight: FontWeight.bold,
+      backgroundColor: Colors.black,
+      body: Stack(
+        children: [
+
+          Positioned.fill(
+            child: Image.asset(
+              'assets/images/6.png',
+              fit: BoxFit.cover,
+            ),
+          ),
+
+
+          Positioned.fill(
+            child: Container(
+              decoration: BoxDecoration(
+                gradient: LinearGradient(
+                  begin: Alignment.topCenter,
+                  end: Alignment.bottomCenter,
+                  colors: [
+                    Colors.transparent,
+                    Colors.transparent,
+                    Colors.black87,
+                    Colors.black,
+                  ],
+                  stops: const [
+                    0.0,
+                    0.45,
+                    0.72,
+                    1.0,
+                  ],
                 ),
               ),
-              const SizedBox(height: 16),
-              const Text(
-                'Discover movies and enjoy watching your favorite ones.',
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  color: Colors.grey,
-                  fontSize: 16,
-                ),
-              ),
-              const Spacer(),
-              Row(
-                children: [
-                  Expanded(
-                    child: OutlinedButton(
-                      onPressed: () {
-                        Navigator.pop(context);
-                      },
-                      style: OutlinedButton.styleFrom(
-                        side: const BorderSide(
-                          color: Color(0xFFF6BD00),
-                        ),
-                        minimumSize: const Size(double.infinity, 55),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(15),
-                        ),
-                      ),
-                      child: const Text(
-                        'Back',
+            ),
+          ),
+
+
+          SafeArea(
+            child: Column(
+              children: [
+                const Spacer(),
+
+                Container(
+                  width: double.infinity,
+                  padding: const EdgeInsets.fromLTRB(
+                    22,
+                    28,
+                    22,
+                    20,
+                  ),
+                  decoration: BoxDecoration(
+                    color: Colors.black.withOpacity(0.90),
+                    borderRadius: const BorderRadius.only(
+                      topLeft: Radius.circular(35),
+                      topRight: Radius.circular(35),
+                    ),
+                  ),
+                  child: Column(
+                    children: [
+
+                      const Text(
+                        'Start Watching Now',
+                        textAlign: TextAlign.center,
                         style: TextStyle(
                           color: Color(0xFFF6BD00),
                           fontSize: 18,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
-                    ),
+
+                      const SizedBox(height: 25),
+
+
+                      SizedBox(
+                        width: double.infinity,
+                        height: 58,
+                        child: ElevatedButton(
+                          onPressed: () {
+                            Navigator.pushNamed(context, AppRoutes.login);
+                          },
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: const Color(0xFFFFE000),
+                            foregroundColor: Colors.black,
+                            elevation: 0,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(18),
+                            ),
+                          ),
+                          child: const Text(
+                            'Finish',
+                            style: TextStyle(
+                              fontSize: 18,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ),
+                      ),
+
+                      const SizedBox(height: 15),
+
+
+                      SizedBox(
+                        width: double.infinity,
+                        height: 58,
+                        child: OutlinedButton(
+                          onPressed: () {
+                            Navigator.pop(context);
+                          },
+                          style: OutlinedButton.styleFrom(
+                            foregroundColor: const Color(0xFFFFE000),
+                            side: const BorderSide(
+                              color: Color(0xFFFFE000),
+                              width: 2,
+                            ),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(18),
+                            ),
+                          ),
+                          child: const Text(
+                            'Back',
+                            style: TextStyle(
+                              fontSize: 18,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
                   const SizedBox(width: 16),
                   Expanded(
