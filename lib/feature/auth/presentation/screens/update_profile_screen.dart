@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 
-import '../../../../core/routes/app_routes.dart';
-
 class UpdateProfileScreen extends StatefulWidget {
   static const String routeName = 'update_profile';
 
@@ -182,9 +180,7 @@ class _UpdateProfileScreenState extends State<UpdateProfileScreen> {
               Align(
                 alignment: Alignment.centerLeft,
                 child: TextButton(
-                  onPressed: () {
-                    Navigator.pushNamed(context, AppRoutes.forgetPassword);
-                  },
+                  onPressed: () {},
                   child: const Text(
                     'Reset Password',
                     style: TextStyle(color: Colors.white, fontSize: 16),
