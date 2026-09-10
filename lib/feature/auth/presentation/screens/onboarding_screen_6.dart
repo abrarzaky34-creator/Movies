@@ -9,22 +9,15 @@ class OnboardingScreen6 extends StatelessWidget {
       backgroundColor: Colors.black,
       body: Stack(
         children: [
-          // =========================
-          // FULL SCREEN IMAGE
-          // =========================
           Positioned.fill(
             child: Image.asset(
               'assets/images/trending-paw-patrol-dino-movie-posters.webp',
               fit: BoxFit.cover,
             ),
           ),
-
-          // =========================
-          // DARK GRADIENT
-          // =========================
           Positioned.fill(
             child: Container(
-              decoration: BoxDecoration(
+              decoration: const BoxDecoration(
                 gradient: LinearGradient(
                   begin: Alignment.topCenter,
                   end: Alignment.bottomCenter,
@@ -34,7 +27,7 @@ class OnboardingScreen6 extends StatelessWidget {
                     Colors.black87,
                     Colors.black,
                   ],
-                  stops: const [
+                  stops: [
                     0.0,
                     0.45,
                     0.72,
@@ -44,23 +37,13 @@ class OnboardingScreen6 extends StatelessWidget {
               ),
             ),
           ),
-
-          // =========================
-          // BOTTOM CONTENT
-          // =========================
           SafeArea(
             child: Column(
               children: [
                 const Spacer(),
-
                 Container(
                   width: double.infinity,
-                  padding: const EdgeInsets.fromLTRB(
-                    22,
-                    28,
-                    22,
-                    20,
-                  ),
+                  padding: const EdgeInsets.fromLTRB(22, 28, 22, 20),
                   decoration: BoxDecoration(
                     color: Colors.black.withOpacity(0.90),
                     borderRadius: const BorderRadius.only(
@@ -70,24 +53,16 @@ class OnboardingScreen6 extends StatelessWidget {
                   ),
                   child: Column(
                     children: [
-                      // =========================
-                      // TITLE
-                      // =========================
                       const Text(
                         'Start Watching Now',
                         textAlign: TextAlign.center,
                         style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 22,
+                          color: Color(0xFFF6BD00),
+                          fontSize: 18,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
-
                       const SizedBox(height: 25),
-
-                      // =========================
-                      // FINISH BUTTON
-                      // =========================
                       SizedBox(
                         width: double.infinity,
                         height: 58,
@@ -113,12 +88,7 @@ class OnboardingScreen6 extends StatelessWidget {
                           ),
                         ),
                       ),
-
                       const SizedBox(height: 15),
-
-                      // =========================
-                      // BACK BUTTON
-                      // =========================
                       SizedBox(
                         width: double.infinity,
                         height: 58,
@@ -148,6 +118,7 @@ class OnboardingScreen6 extends StatelessWidget {
                     ],
                   ),
                 ),
+                const SizedBox(height: 24),
               ],
             ),
           ),

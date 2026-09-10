@@ -1,37 +1,54 @@
 import 'package:firebase_auth/firebase_auth.dart';
 
 class AuthService {
-  final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
+  final FirebaseAuth _auth = FirebaseAuth.instance;
 
-  // تسجيل الدخول
-  Future<UserCredential> login({
+  Future<UserCredential> registerWithEmail({
     required String email,
     required String password,
   }) async {
-    return await _firebaseAuth.signInWithEmailAndPassword(
-      email: email,
-      password: password,
-    );
+    try {
+      UserCredential userCredential =
+      await _auth.createUserWithEmailAndPassword(
+        email: email,
+        password: password,
+      );
+      return userCredential;
+    } on FirebaseAuthException catch (e) {
+      throw e.message ?? 'Authentication failed';
+    } catch (e) {
+      throw 'An unexpected error occurred';
+    }
   }
 
-  // إنشاء حساب جديد
-  Future<UserCredential> register({
+  Future<UserCredential> loginWithEmail({
     required String email,
     required String password,
   }) async {
-    return await _firebaseAuth.createUserWithEmailAndPassword(
-      email: email,
-      password: password,
-    );
+    try {
+      UserCredential userCredential = await _auth.signInWithEmailAndPassword(
+        email: email,
+        password: password,
+      );
+      return userCredential;
+    } on FirebaseAuthException catch (e) {
+      throw e.message ?? 'Authentication failed';
+    } catch (e) {
+      throw 'An unexpected error occurred';
+    }
   }
 
-  // استعادة كلمة السر
-  Future<void> resetPassword({required String email}) async {
-    await _firebaseAuth.sendPasswordResetEmail(email: email);
+  Future<void> resetPassword(String email) async {
+    try {
+      await _auth.sendPasswordResetEmail(email: email);
+    } on FirebaseAuthException catch (e) {
+      throw e.message ?? 'Failed to send password reset email';
+    } catch (e) {
+      throw 'An unexpected error occurred';
+    }
   }
 
-  // تسجيل الخروج
-  Future<void> logout() async {
-    await _firebaseAuth.signOut();
+  Future<void> signOut() async {
+    await _auth.signOut();
   }
 }
