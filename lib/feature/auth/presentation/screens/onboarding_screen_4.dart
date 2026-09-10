@@ -10,15 +10,19 @@ class OnboardingScreen4 extends StatelessWidget {
       backgroundColor: Colors.black,
       body: Stack(
         children: [
-
+          // =========================
+          // FULL SCREEN IMAGE
+          // =========================
           Positioned.fill(
             child: Image.asset(
-              'assets/images/xl_bad-boys-ride-or-die-movie-poster_591dcde0 1 (1).png',
+              'assets/images/best-movie-posters-jurassic-park.webp',
               fit: BoxFit.cover,
             ),
           ),
 
-
+          // =========================
+          // DARK GRADIENT
+          // =========================
           Positioned.fill(
             child: Container(
               decoration: BoxDecoration(
@@ -42,7 +46,9 @@ class OnboardingScreen4 extends StatelessWidget {
             ),
           ),
 
-
+          // =========================
+          // CONTENT
+          // =========================
           SafeArea(
             child: Column(
               children: [
@@ -66,7 +72,9 @@ class OnboardingScreen4 extends StatelessWidget {
 
                 const Spacer(),
 
-
+                // =========================
+                // BOTTOM BLACK BOX
+                // =========================
                 Container(
                   width: double.infinity,
                   padding: const EdgeInsets.fromLTRB(
@@ -84,7 +92,7 @@ class OnboardingScreen4 extends StatelessWidget {
                   ),
                   child: Column(
                     children: [
-
+                      // TITLE
                       const Text(
                         'Create Watchlists',
                         textAlign: TextAlign.center,
@@ -97,7 +105,7 @@ class OnboardingScreen4 extends StatelessWidget {
 
                       const SizedBox(height: 12),
 
-
+                      // DESCRIPTION
                       const Text(
                         'Save movies to your watchlist to keep\n'
                             'track of what you want to watch next.\n'
@@ -114,7 +122,9 @@ class OnboardingScreen4 extends StatelessWidget {
 
                       const SizedBox(height: 25),
 
-
+                      // =========================
+                      // NEXT BUTTON
+                      // =========================
                       SizedBox(
                         width: double.infinity,
                         height: 58,
@@ -148,7 +158,9 @@ class OnboardingScreen4 extends StatelessWidget {
 
                       const SizedBox(height: 15),
 
-
+                      // =========================
+                      // BACK BUTTON
+                      // =========================
                       SizedBox(
                         width: double.infinity,
                         height: 58,

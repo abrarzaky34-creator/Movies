@@ -1,10 +1,9 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
-import '../../data/data_sources/movie_details_remote_data_source.dart';
-import '../../data/movie_details_repository.dart';
-import '../../logic/movie_details_cubit.dart';
+import 'package:movies/feature/movie_details/data/data_sources/movie_details_remote_data_source.dart';
+import 'package:movies/feature/movie_details/data/movie_details_repository.dart';
+import 'package:movies/feature/movie_details/logic/movie_details_cubit.dart';
 
 import '../../../../features/profile/data/watch_list_repository.dart';
 import '../../../../features/profile/logic/watch_list_cubit.dart';
@@ -20,9 +19,7 @@ class MovieDetailsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final dio = Dio();
-
     final remoteDataSource = MovieDetailsRemoteDataSource(dio);
-
     final repository = MovieDetailsRepository(remoteDataSource);
 
     return MultiBlocProvider(

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import '../../../../core/routes/app_routes.dart';
 
 class OnboardingScreen6 extends StatelessWidget {
   const OnboardingScreen6({super.key});
@@ -12,7 +11,7 @@ class OnboardingScreen6 extends StatelessWidget {
         children: [
           Positioned.fill(
             child: Image.asset(
-              'assets/images/6.png',
+              'assets/images/trending-paw-patrol-dino-movie-posters.webp',
               fit: BoxFit.cover,
             ),
           ),
@@ -69,7 +68,8 @@ class OnboardingScreen6 extends StatelessWidget {
                         height: 58,
                         child: ElevatedButton(
                           onPressed: () {
-                            Navigator.pushNamed(context, AppRoutes.login);
+                            // هنا هنحط الشاشة الرئيسية
+                            // بعد ما نخلص الـ Onboarding
                           },
                           style: ElevatedButton.styleFrom(
                             backgroundColor: const Color(0xFFFFE000),

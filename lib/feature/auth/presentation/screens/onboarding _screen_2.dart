@@ -27,7 +27,7 @@ class OnboardingScreen1 extends StatelessWidget {
                     children: [
                       Positioned.fill(
                         child: Image.asset(
-                          'assets/images/22xl_848228_477d9240 1.png',
+                          'assets/images/americana-movies-he-poster-02.webp',
                           fit: BoxFit.cover,
                         ),
                       ),

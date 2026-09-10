@@ -3,8 +3,6 @@ import 'update_profile_screen.dart';
 
 import 'update_profile_screen.dart';
 
-import '../../../../core/routes/app_routes.dart';
-
 class ProfileTab extends StatelessWidget {
   static const String routeName = 'profile_tab';
 
@@ -58,9 +56,7 @@ class ProfileTab extends StatelessWidget {
                   Expanded(
                     flex: 2,
                     child: ElevatedButton(
-                      onPressed: () {
-                        Navigator.pushNamed(context, AppRoutes.updateProfile);
-                      },
+                      onPressed: () {},
                       style: ElevatedButton.styleFrom(
                         backgroundColor: const Color(0xFFF6BD00),
                         shape: RoundedRectangleBorder(
