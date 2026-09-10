@@ -1,7 +1,52 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+
+import 'package:movies/feature/auth/data/auth_service.dart';
+import 'package:movies/feature/auth/logic/auth_cubit.dart';
+import 'package:movies/feature/auth/logic/auth_state.dart';
+
+import '../cubit/forget_password_cubit.dart';
 
 class ForgetPasswordScreen extends StatefulWidget {
-  const ForgetPasswordScreen({super.key});
+static const String routeName = 'forget_password';
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocProvider(
+      create: (context) => AuthCubit(AuthService()),
+      child: const ForgetPasswordContent(),
+    );
+  }
+}
+
+class ForgetPasswordContent extends StatefulWidget {
+  const ForgetPasswordContent({super.key});
+
+  @override
+  State<ForgetPasswordContent> createState() => _ForgetPasswordContentState();
+}
+
+class _ForgetPasswordContentState extends State<ForgetPasswordContent> {
+  final _emailController = TextEditingController();
+
+  @override
+  void dispose() {
+    _emailController.dispose();
+    super.dispose();
+  }
+
+  void _onVerifyPressed() {
+    final email = _emailController.text.trim();
+
+    if (email.isEmpty) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Please enter your email!')),
+      );
+      return;
+    }
+
+    context.read<AuthCubit>().resetPassword(email);
+  }
 
   @override
   State<ForgetPasswordScreen> createState() => _ForgetPasswordScreenState();
@@ -32,73 +77,89 @@ class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
         ),
       ),
       body: SafeArea(
-        child: SingleChildScrollView(
-          padding: const EdgeInsets.symmetric(horizontal: 16.0),
-          child: Form(
-            key: _formKey,
-            autovalidateMode: AutovalidateMode.onUserInteraction,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
-                const SizedBox(height: 20),
-                Center(
-                  child: Image.asset(
-                    'assets/images/forget_password_img.png',
-                    height: 220,
-                  ),
+        child: BlocConsumer<AuthCubit, AuthState>(
+          listener: (context, state) {
+            if (state is AuthSuccess) {
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(
+                  content: Text(state.message),
+                  backgroundColor: Colors.green,
                 ),
-                const SizedBox(height: 30),
-                TextFormField(
-                  controller: _emailController,
-                  style: const TextStyle(color: Colors.white),
-                  keyboardType: TextInputType.emailAddress,
-                  validator: (value) {
-                    if (value == null || value.trim().isEmpty) {
-                      return 'Email is required';
-                    }
-                    final emailRegex = RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$');
-                    if (!emailRegex.hasMatch(value.trim())) {
-                      return 'Please enter a valid email address';
-                    }
-                    return null;
-                  },
-                  decoration: InputDecoration(
-                    hintText: 'Email',
-                    hintStyle: const TextStyle(color: Colors.grey),
-                    prefixIcon: const Icon(Icons.email, color: Colors.white),
-                    filled: true,
-                    fillColor: const Color(0xFF282A28),
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(15),
-                      borderSide: BorderSide.none,
-                    ),
-                    errorStyle: const TextStyle(color: Colors.redAccent),
-                  ),
+              );
+              Navigator.pop(context);
+            } else if (state is AuthError) {
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(
+                  content: Text(state.error),
+                  backgroundColor: Colors.red,
                 ),
-                const SizedBox(height: 24),
-                ElevatedButton(
-                  onPressed: () {
-                    if (_formKey.currentState!.validate()) {
-                      // Verify Logic
-                    }
-                  },
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: const Color(0xFFFFBB3B),
-                    padding: const EdgeInsets.symmetric(vertical: 14),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(15),
+              );
+            }
+          },
+          builder: (context, state) {
+            return SingleChildScrollView(
+              padding: const EdgeInsets.symmetric(horizontal: 16.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  const SizedBox(height: 20),
+                  Center(
+                    child: Image.asset(
+                      'assets/images/forget_password_img.png',
+                      height: 320,
+                      width: double.infinity,
+                      fit: BoxFit.contain,
                     ),
                   ),
-                  child: const Text(
-                    'Verify Email',
-                    style: TextStyle(color: Colors.black, fontSize: 18, fontWeight: FontWeight.bold),
+                  const SizedBox(height: 32),
+                  TextField(
+                    controller: _emailController,
+                    keyboardType: TextInputType.emailAddress,
+                    style: const TextStyle(color: Colors.white),
+                    decoration: InputDecoration(
+                      hintText: 'Email',
+                      hintStyle: const TextStyle(color: Colors.grey),
+                      prefixIcon: const Icon(Icons.email, color: Colors.white),
+                      filled: true,
+                      fillColor: const Color(0xFF282A28),
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(15),
+                        borderSide: BorderSide.none,
+                      ),
+                    ),
                   ),
-                ),
-              ],
-            ),
-          ),
+                  const SizedBox(height: 24),
+                  SizedBox(
+                    height: 55,
+                    child: ElevatedButton(
+                      onPressed:
+                      state is AuthLoading ? null : _onVerifyPressed,
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: const Color(0xFFF6BD00),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(15),
+                        ),
+                      ),
+                      child: state is AuthLoading
+                          ? const CircularProgressIndicator(
+                          color: Colors.black)
+                          : const Text(
+                        'Verify Email',
+                        style: TextStyle(
+                          color: Colors.black,
+                          fontSize: 20,
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            );
+          },
         ),
       ),
     );
   }
+
 }

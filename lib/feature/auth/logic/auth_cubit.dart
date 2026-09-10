@@ -1,46 +1,51 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:movies/feature/auth/data/auth_service.dart';
-import 'package:movies/feature/auth/logic/auth_state.dart';
+import '../data/auth_service.dart';
+import 'auth_state.dart';
 
 class AuthCubit extends Cubit<AuthState> {
-  final AuthService authService;
+  final AuthService _authService;
 
-  AuthCubit(this.authService) : super(AuthInitialState());
+  AuthCubit(this._authService) : super(AuthInitial());
 
-  // تسجيل الدخول
-  Future<void> login({required String email, required String password}) async {
-    emit(AuthLoadingState());
+  Future<void> register({
+    required String email,
+    required String password,
+  }) async {
+    emit(AuthLoading());
     try {
-      final credential = await authService.login(email: email, password: password);
-      if (credential.user != null) {
-        emit(AuthSuccessState(credential.user!));
-      }
+      await _authService.registerWithEmail(
+        email: email,
+        password: password,
+      );
+      emit(AuthSuccess("Account created successfully!"));
     } catch (e) {
-      emit(AuthErrorState(e.toString()));
+      emit(AuthError(e.toString()));
     }
   }
 
-  // إنشاء حساب
-  Future<void> register({required String email, required String password}) async {
-    emit(AuthLoadingState());
+  Future<void> login({
+    required String email,
+    required String password,
+  }) async {
+    emit(AuthLoading());
     try {
-      final credential = await authService.register(email: email, password: password);
-      if (credential.user != null) {
-        emit(AuthSuccessState(credential.user!));
-      }
+      await _authService.loginWithEmail(
+        email: email,
+        password: password,
+      );
+      emit(AuthSuccess("Logged in successfully!"));
     } catch (e) {
-      emit(AuthErrorState(e.toString()));
+      emit(AuthError(e.toString()));
     }
   }
 
-  // استعادة كلمة السر
-  Future<void> resetPassword({required String email}) async {
-    emit(AuthLoadingState());
+  Future<void> resetPassword(String email) async {
+    emit(AuthLoading());
     try {
-      await authService.resetPassword(email: email);
-      emit(PasswordResetSentState());
+      await _authService.resetPassword(email);
+      emit(AuthSuccess("Password reset email sent!"));
     } catch (e) {
-      emit(AuthErrorState(e.toString()));
+      emit(AuthError(e.toString()));
     }
   }
 }

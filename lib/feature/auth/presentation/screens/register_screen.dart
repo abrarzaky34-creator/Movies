@@ -1,17 +1,33 @@
 import 'package:flutter/material.dart';
-import 'package:movies/core/routes/app_routes.dart';
+import 'package:flutter/gestures.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../../core/routes/app_routes.dart';
+import 'package:movies/feature/auth/data/auth_service.dart';
+import 'package:movies/feature/auth/logic/auth_cubit.dart';
+import 'package:movies/feature/auth/logic/auth_state.dart';
 
-class RegisterScreen extends StatefulWidget {
+class RegisterScreen extends StatelessWidget {
+  static const String routeName = 'register';
+
   const RegisterScreen({super.key});
 
   @override
-  State<RegisterScreen> createState() => _RegisterScreenState();
+  Widget build(BuildContext context) {
+    return BlocProvider(
+      create: (context) => AuthCubit(AuthService()),
+      child: const RegisterScreenContent(),
+    );
+  }
 }
 
-class _RegisterScreenState extends State<RegisterScreen> {
-  final _formKey = GlobalKey<FormState>();
+class RegisterScreenContent extends StatefulWidget {
+  const RegisterScreenContent({super.key});
+
+  @override
+  State<RegisterScreenContent> createState() => _RegisterScreenContentState();
+}
+
+class _RegisterScreenContentState extends State<RegisterScreenContent> {
   final _nameController = TextEditingController();
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
@@ -31,6 +47,37 @@ class _RegisterScreenState extends State<RegisterScreen> {
     super.dispose();
   }
 
+  void _onRegisterPressed() {
+    final name = _nameController.text.trim();
+    final email = _emailController.text.trim();
+    final password = _passwordController.text.trim();
+    final confirmPassword = _confirmPasswordController.text.trim();
+    final phone = _phoneController.text.trim();
+
+    if (name.isEmpty ||
+        email.isEmpty ||
+        password.isEmpty ||
+        confirmPassword.isEmpty ||
+        phone.isEmpty) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Please fill in all fields!')),
+      );
+      return;
+    }
+
+    if (password != confirmPassword) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Passwords do not match!')),
+      );
+      return;
+    }
+
+    context.read<AuthCubit>().register(
+      email: email,
+      password: password,
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -46,164 +93,218 @@ class _RegisterScreenState extends State<RegisterScreen> {
         ),
       ),
       body: SafeArea(
-        child: SingleChildScrollView(
-          padding: const EdgeInsets.symmetric(horizontal: 16.0),
-          child: Form(
-            key: _formKey,
-            autovalidateMode: AutovalidateMode.onUserInteraction,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
-                const SizedBox(height: 10),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    Image.asset('assets/images/avatar2.png', height: 70),
-                    Image.asset('assets/images/avatar3.png', height: 90),
-                    Image.asset('assets/images/avatar1.png', height: 70),
-                  ],
+        child: BlocConsumer<AuthCubit, AuthState>(
+          listener: (context, state) {
+            if (state is AuthSuccess) {
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(
+                  content: Text(state.message),
+                  backgroundColor: Colors.green,
                 ),
-                const SizedBox(height: 10),
-                const Center(
-                  child: Text('Avatar', style: TextStyle(color: Colors.white, fontSize: 16)),
+              );
+              Navigator.pop(context);
+            } else if (state is AuthError) {
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(
+                  content: Text(state.error),
+                  backgroundColor: Colors.red,
                 ),
-                const SizedBox(height: 20),
-                _buildFormField(
-                  controller: _nameController,
-                  hint: 'Name',
-                  icon: Icons.badge,
-                  validator: (value) {
-                    if (value == null || value.trim().isEmpty) {
-                      return 'Name is required';
-                    }
-                    return null;
-                  },
-                ),
-                const SizedBox(height: 12),
-                _buildFormField(
-                  controller: _emailController,
-                  hint: 'Email',
-                  icon: Icons.email,
-                  keyboardType: TextInputType.emailAddress,
-                  validator: (value) {
-                    if (value == null || value.trim().isEmpty) {
-                      return 'Email is required';
-                    }
-                    final emailRegex = RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$');
-                    if (!emailRegex.hasMatch(value.trim())) {
-                      return 'Please enter a valid email address';
-                    }
-                    return null;
-                  },
-                ),
-                const SizedBox(height: 12),
-                _buildFormField(
-                  controller: _passwordController,
-                  hint: 'Password',
-                  icon: Icons.lock,
-                  isPassword: true,
-                  isObscured: _isPasswordObscured,
-                  onToggleObscure: () {
-                    setState(() {
-                      _isPasswordObscured = !_isPasswordObscured;
-                    });
-                  },
-                  validator: (value) {
-                    if (value == null || value.trim().isEmpty) {
-                      return 'Password is required';
-                    }
-                    if (value.length < 6) {
-                      return 'Password must be at least 6 characters';
-                    }
-                    return null;
-                  },
-                ),
-                const SizedBox(height: 12),
-                _buildFormField(
-                  controller: _confirmPasswordController,
-                  hint: 'Confirm Password',
-                  icon: Icons.lock,
-                  isPassword: true,
-                  isObscured: _isConfirmPasswordObscured,
-                  onToggleObscure: () {
-                    setState(() {
-                      _isConfirmPasswordObscured = !_isConfirmPasswordObscured;
-                    });
-                  },
-                  validator: (value) {
-                    if (value == null || value.trim().isEmpty) {
-                      return 'Confirm password is required';
-                    }
-                    if (value != _passwordController.text) {
-                      return 'Passwords do not match';
-                    }
-                    return null;
-                  },
-                ),
-                const SizedBox(height: 12),
-                _buildFormField(
-                  controller: _phoneController,
-                  hint: 'Phone Number',
-                  icon: Icons.phone,
-                  keyboardType: TextInputType.phone,
-                  validator: (value) {
-                    if (value == null || value.trim().isEmpty) {
-                      return 'Phone number is required';
-                    }
-                    if (value.trim().length < 10) {
-                      return 'Please enter a valid phone number';
-                    }
-                    return null;
-                  },
-                ),
-                const SizedBox(height: 24),
-                ElevatedButton(
-                  onPressed: () {
-                    if (_formKey.currentState!.validate()) {
-                      // Register Logic
-                    }
-                  },
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: const Color(0xFFFFBB3B),
-                    padding: const EdgeInsets.symmetric(vertical: 14),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(15),
+              );
+            }
+          },
+          builder: (context, state) {
+            return SingleChildScrollView(
+              padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(
+                    children: [
+                      IconButton(
+                        icon: const Icon(Icons.arrow_back, color: Colors.white),
+                        onPressed: () => Navigator.pop(context),
+                      ),
+                      const Expanded(
+                        child: Center(
+                          child: Text(
+                            'Register',
+                            style: TextStyle(
+                              color: Colors.amber,
+                              fontSize: 18,
+                              fontWeight: FontWeight.w600,
+                            ),
+                          ),
+                        ),
+                      ),
+                      const SizedBox(width: 48),
+                    ],
+                  ),
+                  const SizedBox(height: 24),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: List.generate(_avatars.length, (index) {
+                      final isSelected = _selectedAvatar == index;
+                      return GestureDetector(
+                        onTap: () => setState(() => _selectedAvatar = index),
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 8),
+                          child: CircleAvatar(
+                            radius: isSelected ? 40 : 32,
+                            backgroundColor: Colors.blue.shade100,
+                            backgroundImage: AssetImage(_avatars[index]),
+                          ),
+                        ),
+                      );
+                    }),
+                  ),
+                  const SizedBox(height: 8),
+                  const Center(
+                    child: Text('Avatar', style: TextStyle(color: Colors.white70)),
+                  ),
+                  const SizedBox(height: 24),
+                  _buildTextField(
+                    controller: _nameController,
+                    hint: 'Name',
+                    icon: Icons.badge_outlined,
+                  ),
+                  const SizedBox(height: 14),
+                  _buildTextField(
+                    controller: _emailController,
+                    hint: 'Email',
+                    icon: Icons.email_outlined,
+                    keyboardType: TextInputType.emailAddress,
+                  ),
+                  const SizedBox(height: 14),
+                  _buildTextField(
+                    controller: _passwordController,
+                    hint: 'Password',
+                    icon: Icons.lock_outline,
+                    obscureText: _obscurePassword,
+                    suffixIcon: IconButton(
+                      icon: Icon(
+                        _obscurePassword
+                            ? Icons.visibility_off
+                            : Icons.visibility,
+                        color: Colors.white54,
+                      ),
+                      onPressed: () {
+                        setState(() => _obscurePassword = !_obscurePassword);
+                      },
                     ),
                   ),
-                  child: const Text(
-                    'Create Account',
-                    style: TextStyle(color: Colors.black, fontSize: 18, fontWeight: FontWeight.bold),
-                  ),
-                ),
-                const SizedBox(height: 16),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    const Text('Already Have Account? ', style: TextStyle(color: Colors.white)),
-                    GestureDetector(
-                      onTap: () {
-                        Navigator.pushNamed(context, AppRoutes.login);
+                  const SizedBox(height: 14),
+                  _buildTextField(
+                    controller: _confirmPasswordController,
+                    hint: 'Confirm Password',
+                    icon: Icons.lock_outline,
+                    obscureText: _obscureConfirmPassword,
+                    suffixIcon: IconButton(
+                      icon: Icon(
+                        _obscureConfirmPassword
+                            ? Icons.visibility_off
+                            : Icons.visibility,
+                        color: Colors.white54,
+                      ),
+                      onPressed: () {
+                        setState(() {
+                          _obscureConfirmPassword = !_obscureConfirmPassword;
+                        });
                       },
-                      child: const Text(
-                        'Login',
-                        style: TextStyle(color: Color(0xFFFFBB3B), fontWeight: FontWeight.bold),
+                    ),
+                  ),
+                  const SizedBox(height: 14),
+                  _buildTextField(
+                    controller: _phoneController,
+                    hint: 'Phone Number',
+                    icon: Icons.phone_outlined,
+                    keyboardType: TextInputType.phone,
+                  ),
+                  const SizedBox(height: 28),
+                  SizedBox(
+                    width: double.infinity,
+                    height: 52,
+                    child: ElevatedButton(
+                      onPressed: state is AuthLoading ? null : _onRegisterPressed,
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.amber,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(30),
+                        ),
+                      ),
+                      child: state is AuthLoading
+                          ? const CircularProgressIndicator(color: Colors.black)
+                          : const Text(
+                        'Create Account',
+                        style: TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.black,
+                        ),
                       ),
                     ),
-                  ],
-                ),
-                const SizedBox(height: 16),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Image.asset('assets/images/eg.png', height: 30),
-                    const SizedBox(width: 15),
-                    Image.asset('assets/images/LR.png', height: 30),
-                  ],
-                ),
-                const SizedBox(height: 20),
-              ],
-            ),
-          ),
+                  ),
+                  const SizedBox(height: 16),
+                  Center(
+                    child: RichText(
+                      text: TextSpan(
+                        style: const TextStyle(color: Colors.white70),
+                        children: [
+                          const TextSpan(text: 'Already Have Account ? '),
+                          TextSpan(
+                            text: 'Login',
+                            style: const TextStyle(
+                              color: Colors.amber,
+                              fontWeight: FontWeight.bold,
+                            ),
+                            recognizer: TapGestureRecognizer()
+                              ..onTap = () {
+                                Navigator.pop(context);
+                              },
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                  const SizedBox(height: 20),
+                  Center(
+                    child: Container(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 8, vertical: 4),
+                      decoration: BoxDecoration(
+                        border: Border.all(color: const Color(0xFFE5B121)),
+                        borderRadius: BorderRadius.circular(20),
+                      ),
+                      child: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          ClipRRect(
+                            borderRadius: BorderRadius.circular(10),
+                            child: Image.asset(
+                              'assets/images/eg.png',
+                              height: 20,
+                              width: 25,
+                              fit: BoxFit.cover,
+                            ),
+                          ),
+                          const SizedBox(width: 6),
+                          ClipRRect(
+                            borderRadius: BorderRadius.circular(10),
+                            child: Image.asset(
+                              'assets/images/LR.png',
+                              height: 20,
+                              width: 25,
+                              fit: BoxFit.cover,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                  const SizedBox(height: 20),
+                ],
+              ),
+            );
+          },
         ),
       ),
     );
