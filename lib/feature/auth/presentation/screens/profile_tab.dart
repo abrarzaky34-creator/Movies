@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'update_profile_screen.dart';
 
 import '../../../../core/routes/app_routes.dart';
 
@@ -24,7 +25,8 @@ class ProfileTab extends StatelessWidget {
                     children: [
                       const CircleAvatar(
                         radius: 38,
-                        backgroundImage: AssetImage('assets/images/avatar3.png'),
+                        backgroundImage:
+                        AssetImage('assets/images/avatar3.png'),
                       ),
                       const SizedBox(height: 8),
                       const Text(
@@ -86,9 +88,16 @@ class ProfileTab extends StatelessWidget {
                       child: const Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Text('Exit', style: TextStyle(color: Colors.white)),
+                          Text(
+                            'Exit',
+                            style: TextStyle(color: Colors.white),
+                          ),
                           SizedBox(width: 4),
-                          Icon(Icons.exit_to_app, color: Colors.white, size: 18),
+                          Icon(
+                            Icons.exit_to_app,
+                            color: Colors.white,
+                            size: 18,
+                          ),
                         ],
                       ),
                     ),
@@ -99,11 +108,22 @@ class ProfileTab extends StatelessWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
-                  _buildTabHeader(Icons.format_list_bulleted, 'Watch List', true),
-                  _buildTabHeader(Icons.folder_open, 'History', false),
+                  _buildTabHeader(
+                    Icons.format_list_bulleted,
+                    'Watch List',
+                    true,
+                  ),
+                  _buildTabHeader(
+                    Icons.folder_open,
+                    'History',
+                    false,
+                  ),
                 ],
               ),
-              const Divider(color: Colors.grey, thickness: 0.5),
+              const Divider(
+                color: Colors.grey,
+                thickness: 0.5,
+              ),
               const Spacer(),
               Image.asset(
                 'assets/images/empty_list.png',
@@ -130,22 +150,38 @@ class ProfileTab extends StatelessWidget {
         ),
         Text(
           label,
-          style: const TextStyle(color: Colors.grey, fontSize: 14),
+          style: const TextStyle(
+            color: Colors.grey,
+            fontSize: 14,
+          ),
         ),
       ],
     );
   }
 
-  Widget _buildTabHeader(IconData icon, String title, bool isSelected) {
+  Widget _buildTabHeader(
+      IconData icon,
+      String title,
+      bool isSelected,
+      ) {
     return Column(
       children: [
-        Icon(icon, color: isSelected ? const Color(0xFFF6BD00) : Colors.grey),
+        Icon(
+          icon,
+          color: isSelected
+              ? const Color(0xFFF6BD00)
+              : Colors.grey,
+        ),
         const SizedBox(height: 4),
         Text(
           title,
           style: TextStyle(
-            color: isSelected ? const Color(0xFFF6BD00) : Colors.grey,
-            fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
+            color: isSelected
+                ? const Color(0xFFF6BD00)
+                : Colors.grey,
+            fontWeight: isSelected
+                ? FontWeight.bold
+                : FontWeight.normal,
           ),
         ),
       ],
