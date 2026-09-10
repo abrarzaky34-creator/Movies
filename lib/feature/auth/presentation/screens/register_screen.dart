@@ -34,15 +34,8 @@ class _RegisterScreenContentState extends State<RegisterScreenContent> {
   final _confirmPasswordController = TextEditingController();
   final _phoneController = TextEditingController();
 
-  bool _obscurePassword = true;
-  bool _obscureConfirmPassword = true;
-  int _selectedAvatar = 1;
-
-  final List<String> _avatars = [
-    'assets/images/avatar1.png',
-    'assets/images/avatar2.png',
-    'assets/images/avatar3.png',
-  ];
+  bool _isPasswordObscured = true;
+  bool _isConfirmPasswordObscured = true;
 
   @override
   void dispose() {
@@ -88,7 +81,17 @@ class _RegisterScreenContentState extends State<RegisterScreenContent> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFF1A1A1A),
+      backgroundColor: const Color(0xFF121312),
+      appBar: AppBar(
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+        title: const Text('Register', style: TextStyle(color: Color(0xFFFFBB3B))),
+        centerTitle: true,
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back, color: Color(0xFFFFBB3B)),
+          onPressed: () => Navigator.pop(context),
+        ),
+      ),
       body: SafeArea(
         child: BlocConsumer<AuthCubit, AuthState>(
           listener: (context, state) {
@@ -307,32 +310,42 @@ class _RegisterScreenContentState extends State<RegisterScreenContent> {
     );
   }
 
-  Widget _buildTextField({
+  Widget _buildFormField({
     required TextEditingController controller,
     required String hint,
     required IconData icon,
-    bool obscureText = false,
-    Widget? suffixIcon,
+    required String? Function(String?) validator,
+    bool isPassword = false,
+    bool isObscured = false,
+    VoidCallback? onToggleObscure,
     TextInputType keyboardType = TextInputType.text,
   }) {
-    return TextField(
+    return TextFormField(
       controller: controller,
-      obscureText: obscureText,
+      obscureText: isPassword ? isObscured : false,
       keyboardType: keyboardType,
       style: const TextStyle(color: Colors.white),
+      validator: validator,
       decoration: InputDecoration(
         hintText: hint,
-        hintStyle: const TextStyle(color: Colors.white54),
-        prefixIcon: Icon(icon, color: Colors.white54),
-        suffixIcon: suffixIcon,
+        hintStyle: const TextStyle(color: Colors.grey),
+        prefixIcon: Icon(icon, color: Colors.white),
+        suffixIcon: isPassword
+            ? IconButton(
+          icon: Icon(
+            isObscured ? Icons.visibility_off : Icons.visibility,
+            color: Colors.grey,
+          ),
+          onPressed: onToggleObscure,
+        )
+            : null,
         filled: true,
-        fillColor: const Color(0xFF2A2A2A),
+        fillColor: const Color(0xFF282A28),
         border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(16),
+          borderRadius: BorderRadius.circular(15),
           borderSide: BorderSide.none,
         ),
-        contentPadding:
-        const EdgeInsets.symmetric(vertical: 16, horizontal: 16),
+        errorStyle: const TextStyle(color: Colors.redAccent),
       ),
     );
   }
